@@ -9,11 +9,6 @@ import {
   LogOut,
   Edit,
 } from 'react-feather'
-import nProgress from 'nprogress'
-
-Router.onRouteChangeStart = () => nProgress.start()
-Router.onRouteChangeComplete = () => nProgress.done()
-Router.onRouteChangeError = () => nProgress.done()
 
 function Header() {
   const router = useRouter()

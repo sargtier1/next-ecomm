@@ -1,7 +1,19 @@
+import React from 'react'
+import axios from 'axios'
 
+function Home({ products }) {
+  console.log(products)
 
-function Home() {
-  return <>home</>;
+  return <>home</>
 }
 
-export default Home;
+Home.getInitialProps = async () => {
+  const url = 'http://localhost:3000/api/products'
+  const res = await axios.get(url)
+
+  return {
+    products: res.data,
+  }
+}
+
+export default Home

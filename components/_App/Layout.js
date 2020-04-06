@@ -1,26 +1,54 @@
+import Router from 'next/router'
 import Head from 'next/head'
 
 import Header from './Header'
 import HeadContent from './HeadContent'
 
-function Layout({ children }) {
-  return (
-    <>
-      <Head>
-        <HeadContent />
-        {/* Stylesheets */}
-        <link rel='stylesheet' type='text/css' href='/static/styles.css' />
-        <link rel='stylesheet' type='text/css' href='/static/nprogress.css' />
-        <link
-          rel='stylesheet'
-          href='//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css'
-        />
-        <title>ReactReserve</title>
-      </Head>
-      <Header />
-      <main style={{ paddingTop: '1em' }}>{children}</main>
-    </>
-  )
+import { Loading } from '@zeit-ui/react'
+
+class Layout extends React.Component {
+  state = {
+    loading: false,
+  }
+
+  componentDidMount() {
+    Router.onRouteChangeStart = () => {
+      this.setState({ loading: true })
+    }
+    Router.onRouteChangeComplete = () => {
+      this.setState({ loading: false })
+    }
+    Router.onRouteChangeError = () => {
+      this.setState({ loading: false })
+    }
+  }
+
+  render() {
+    const { children } = this.props
+    return (
+      <>
+        <Head>
+          <HeadContent />
+          {/* Stylesheets */}
+          <link rel='stylesheet' type='text/css' href='/static/styles.css' />
+          <link rel='stylesheet' type='text/css' href='/static/nprogress.css' />
+          <link
+            rel='stylesheet'
+            href='//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css'
+          />
+          <title>ReactReserve</title>
+        </Head>
+        <Header />
+        {this.state.loading ? (
+          <main>
+            <Loading>Loading</Loading>
+          </main>
+        ) : (
+          <main style={{ paddingTop: '1em' }}>{children}</main>
+        )}
+      </>
+    )
+  }
 }
 
 export default Layout
