@@ -1,9 +1,5 @@
-/**
- *  add active link
- */
-
 import NextLink from 'next/link'
-import { useRouter } from 'next/router'
+import Router, { useRouter } from 'next/router'
 import { Link } from '@zeit-ui/react'
 import {
   ShoppingCart,
@@ -13,12 +9,15 @@ import {
   LogOut,
   Edit,
 } from 'react-feather'
+import nProgress from 'nprogress'
+
+Router.onRouteChangeStart = () => nProgress.start()
+Router.onRouteChangeComplete = () => nProgress.done()
+Router.onRouteChangeError = () => nProgress.done()
 
 function Header() {
   const router = useRouter()
   const user = false
-
-  console.log(router)
 
   function isActive(route) {
     return route === router.pathname
