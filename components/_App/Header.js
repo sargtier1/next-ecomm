@@ -23,7 +23,7 @@ function Header() {
       <div>
         <NextLink href='/'>
           <Link pure block>
-            <img src='/static/spooky.svg' alt='logo' style={{ fill: 'blue' }} />
+            <img src='./spooky.svg' alt='logo' style={{ fill: 'blue' }} />
           </Link>
         </NextLink>
       </div>

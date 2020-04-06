@@ -1,1 +1,2 @@
-## Starting Repo for MERN Stack - The Complete Guide
+# Reference App built from Reed Barger's second course of the next.js framework
+
