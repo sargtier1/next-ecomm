@@ -15,7 +15,7 @@ import { FolderPlus } from 'react-feather'
 import useViewPort from '../utils/hooks/width'
 import axios from 'axios'
 import baseUrl from '../utils/baseUrl'
-import { set } from 'mongoose'
+import catchErrors from '../utils/catchErrors'
 
 const init_prod = {
   name: '',
@@ -30,6 +30,7 @@ function CreateProduct() {
   const [success, setSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
   const [disabled, setDisabled] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     const isProduct = Object.values(product).every((el) => Boolean(el))
@@ -57,23 +58,27 @@ function CreateProduct() {
   }
 
   async function handleSubmit(event) {
-    event.preventDefault()
-    setLoading(true)
-    const mediaUrl = await handleImageUpload()
-    console.log({ mediaUrl })
-    const url = `${baseUrl}/api/product`
-    const { name, price, description } = product
-    const payload = {
-      name,
-      price,
-      description,
-      mediaUrl,
+    try {
+      event.preventDefault()
+      setLoading(true)
+      const mediaUrl = await handleImageUpload()
+      const url = `${baseUrl}/api/product`
+      const { name, price, description } = product
+      const payload = {
+        name,
+        price,
+        description,
+        mediaUrl,
+      }
+      const res = await axios.post(url, payload)
+      console.log(res)
+      setProduct(init_prod)
+      setSuccess(true)
+    } catch (e) {
+      catchErrors(e)
+    } finally {
+      setLoading(false)
     }
-    const res = await axios.post(url, payload)
-    setLoading(false)
-    console.log(res)
-    setProduct(init_prod)
-    setSuccess(true)
   }
 
   const { width } = useViewPort()
@@ -93,6 +98,13 @@ function CreateProduct() {
             <Note>
               <Dot type='success'>
                 The item was successfully added to the store!
+              </Dot>
+            </Note>
+          )}
+          {error && (
+            <Note>
+              <Dot type='error'>
+                Uh oh! {}
               </Dot>
             </Note>
           )}
