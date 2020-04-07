@@ -8,24 +8,37 @@ import {
   Row,
   Col,
   Spacer,
+  useToasts,
 } from '@zeit-ui/react'
 import { FolderPlus } from 'react-feather'
 import useViewPort from '../utils/hooks/width'
 
-function CreateProduct() {
-  const [inputs, setInputs] = useState({
-    name: '',
-    price: '',
-    media: '',
-    description: '',
-  })
+const init_prod = {
+  name: '',
+  price: '',
+  media: '',
+  description: '',
+}
 
-  const handleOnChange = (e) => {
-    e.persist()
-    setInputs((prev) => ({
-      ...prev,
-      [e.target.id]: e.target.value,
-    }))
+function CreateProduct() {
+  const [product, setProduct] = useState(init_prod)
+
+  const [mediaPreview, setMediaPreview] = useState(null)
+
+  function handleChange(event) {
+    const { name, value, files } = event.target
+    if (name === 'media') {
+      setProduct((prevState) => ({ ...prevState, media: files[0] }))
+      setMediaPreview(window.URL.createObjectURL(files[0]))
+    } else {
+      setProduct((prevState) => ({ ...prevState, [name]: value }))
+    }
+  }
+
+  function handleSubmit() {
+    event.preventDefault()
+    console.log(product)
+    setProduct(init_prod)
   }
 
   const { width } = useViewPort()
@@ -41,7 +54,7 @@ function CreateProduct() {
           </div>
           <hr />
           <Spacer y={1} />
-          <form action=''>
+          <form onSubmit={handleSubmit}>
             <Row>
               <div className='form-wrapper'>
                 <Col span={width <= 840 ? 24 : 6}>
@@ -49,10 +62,10 @@ function CreateProduct() {
                     clearable
                     placeholder='Green Sofa'
                     width='100%'
-                    value={inputs.name}
                     name='name'
+                    value={product.name}
                     type='text'
-                    onChange={handleOnChange}
+                    onChange={handleChange}
                   >
                     Name
                   </Input>
@@ -63,12 +76,12 @@ function CreateProduct() {
                     clearable
                     placeholder='99.99'
                     width='100%'
-                    value={inputs.price}
                     name='price'
                     min='0.00'
                     step='0.01'
                     type='number'
-                    onChange={handleOnChange}
+                    value={product.price}
+                    onChange={handleChange}
                   >
                     Price
                   </Input>
@@ -79,17 +92,18 @@ function CreateProduct() {
                     clearable
                     placeholder='Link media'
                     width='100%'
-                    value={inputs.media}
                     name='media'
                     type='file'
                     accept='image/*'
-                    onChange={handleOnChange}
+                    onChange={handleChange}
                   >
                     Media
                   </Input>
                 </Col>
               </div>
             </Row>
+            <Spacer />
+            {mediaPreview && <Image src={mediaPreview} />}
             <Spacer />
             <Row>
               <div className='textarea-wrapper'>
@@ -98,8 +112,9 @@ function CreateProduct() {
                 <Textarea
                   width='100%'
                   placeholder='description of item'
-                  value={inputs.description}
-                  onChange={handleOnChange}
+                  name='description'
+                  value={product.description}
+                  onChange={handleChange}
                 />
               </div>
             </Row>
@@ -112,17 +127,6 @@ function CreateProduct() {
           </form>
         </Col>
       </Row>
-      {/* <Spacer y={1} />
-      <Row justify='center' gap={width < 850 ? 0.8 : 1}>
-        <Col span={width < 840 ? 24 : 12}>
-          <Textarea
-            width='100%'
-            placeholder='description'
-            value={value}
-            onChange={handler}
-          />
-        </Col>
-      </Row> */}
       <style jsx>{`
         label {
           display: block;
