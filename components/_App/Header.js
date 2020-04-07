@@ -1,6 +1,6 @@
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
-import { Link } from '@zeit-ui/react'
+import { Link, Text } from '@zeit-ui/react'
 import {
   ShoppingCart,
   User,
@@ -9,8 +9,6 @@ import {
   LogOut,
   Edit,
 } from 'react-feather'
-
-import useViewPort from '../../utils/hooks/width'
 
 function Header() {
   const router = useRouter()
@@ -25,8 +23,13 @@ function Header() {
     <header>
       <div>
         <NextLink href='/'>
-          <Link pure block>
-            <img src='./spooky.svg' alt='logo' style={{ fill: 'blue' }} />
+          <Link style={{ display: 'flex', alignItems: 'center' }} pure block>
+            <img
+              style={{ width: '35px', marginRight: '.5rem' }}
+              src='./logo.svg'
+              alt='logo'
+            />
+            <Text h3>Next Shop</Text>
           </Link>
         </NextLink>
       </div>

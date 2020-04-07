@@ -2,7 +2,6 @@ import NextLink from 'next/link'
 
 import { Col, Display, Text } from '@zeit-ui/react'
 
-// href:`/product?_id=${_id}`
 function ProductList({ products, width }) {
   return (
     <>
@@ -13,8 +12,8 @@ function ProductList({ products, width }) {
               shadow
               caption={
                 <div>
-                  <Text h3>{name}</Text>
-                  <Text type='secondary' h5>{`$ ${price}`}</Text>
+                  <Text h1>{name}</Text>
+                  <Text type='secondary' h2>{`$ ${price}`}</Text>
                 </div>
               }
             >

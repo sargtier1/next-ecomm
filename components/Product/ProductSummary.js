@@ -1,25 +1,36 @@
 import { useState } from 'react'
+import Router from 'next/router'
 import { Image, Button, Fieldset, Note, Input, Modal } from '@zeit-ui/react'
 import { Trash2, ShoppingCart } from 'react-feather'
+import axios from 'axios'
+import baseUrl from '../../utils/baseUrl'
 import useViewPort from '../../utils/hooks/width'
 
 function ProductSummary({ name, mediaUrl, _id, price, description, sku }) {
-  const { width } = useViewPort()
-
   const [state, setState] = useState(false)
+  // const router = useRouter()
+
   const handler = () => setState(true)
-  const closeHandler = (event) => {
+  const closeHandler = () => {
     setState(false)
-    console.log('closed')
   }
+
+  async function handleDelete() {
+    const url = `${baseUrl}/api/product`
+    const payload = { params: { _id } }
+    await axios.delete(url, payload)
+    Router.back()
+  }
+
+  const { width } = useViewPort()
 
   return (
     <>
       <Fieldset>
         <Fieldset.Title>
-          {name} | ${price}
+          {name} -- ${price}
         </Fieldset.Title>
-        <Image src={mediaUrl} width={450} alt={name} />
+        <Image src={mediaUrl} width={650} alt={name} />
         <Fieldset.Subtitle>{description}</Fieldset.Subtitle>
         <div className='container'>
           <div className='notes'>
@@ -49,14 +60,13 @@ function ProductSummary({ name, mediaUrl, _id, price, description, sku }) {
           </Fieldset.Footer.Actions>
         </Fieldset.Footer>
       </Fieldset>
-
       <Modal open={state} onClose={closeHandler}>
         <Modal.Title>Confirm Deletion</Modal.Title>
         <Modal.Content>
           <p>Are you sure you want to delete this product?</p>
         </Modal.Content>
         <Modal.Action passive>Cancel</Modal.Action>
-        <Modal.Action>
+        <Modal.Action onClick={handleDelete}>
           <Trash2 size={25} />
           Delete
         </Modal.Action>
