@@ -79,7 +79,7 @@ function CreateProduct() {
             <Row>
               <div className='textarea-wrapper'>
                 <label>Description</label>
-                <Spacer y={.1}/>
+                <Spacer y={0.1} />
                 <Textarea
                   width='100%'
                   placeholder='description of item'

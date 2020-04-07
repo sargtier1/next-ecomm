@@ -4,7 +4,7 @@ import Head from 'next/head'
 import Header from './Header'
 import HeadContent from './HeadContent'
 
-import { Loading } from '@zeit-ui/react'
+import { Spinner } from '@zeit-ui/react'
 
 class Layout extends React.Component {
   state = {
@@ -34,17 +34,26 @@ class Layout extends React.Component {
         <Header />
         {this.state.loading ? (
           <main>
-            <Loading>Loading</Loading>
+            <div className='loading-wrapper'>
+              <Spinner size='large' />
+            </div>
           </main>
         ) : (
           <main style={{ paddingTop: '1em' }}>{children}</main>
         )}
+        <style jsx>{`
+          .loading-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 40ch;
+          }
+        `}</style>
         <style jsx global>{`
           :root {
             --bodyBg: #f0f4f8;
             --progressBar: #54d1db;
           }
-
           body {
             background: var(--bodyBg);
             font-family: Helvetica, Sans-Serif;
@@ -52,8 +61,8 @@ class Layout extends React.Component {
             font-size: 9pt;
             background-color: #fafafa;
           }
-
-          #menu {
+          main {
+            min-height: 65vh;
           }
         `}</style>
       </>

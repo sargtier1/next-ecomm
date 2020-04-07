@@ -30,7 +30,7 @@ function ProductSummary({ name, mediaUrl, _id, price, description, sku }) {
         <Fieldset.Title>
           {name} -- ${price}
         </Fieldset.Title>
-        <Image src={mediaUrl} width={650} alt={name} />
+        <Image src={mediaUrl} width={550} alt={name} />
         <Fieldset.Subtitle>{description}</Fieldset.Subtitle>
         <div className='container'>
           <div className='notes'>

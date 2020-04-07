@@ -8,7 +8,7 @@ function Product({ product }) {
   const { width } = useViewPort()
   return (
     <Row justify='center' gap={width <= 840 ? 0.8 : 1}>
-      <Col span={width <= 840 ? 24 : 17}>
+      <Col span={width <= 840 ? 24 : 14}>
         <ProductSummary {...product} />
       </Col>
     </Row>
