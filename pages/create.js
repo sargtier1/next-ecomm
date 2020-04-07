@@ -13,6 +13,8 @@ import {
 } from '@zeit-ui/react'
 import { FolderPlus } from 'react-feather'
 import useViewPort from '../utils/hooks/width'
+import axios from 'axios'
+import baseUrl from '../utils/baseUrl'
 
 const init_prod = {
   name: '',
@@ -23,9 +25,7 @@ const init_prod = {
 
 function CreateProduct() {
   const [product, setProduct] = useState(init_prod)
-
   const [mediaPreview, setMediaPreview] = useState(null)
-
   const [success, setSuccess] = useState(false)
 
   function handleChange(event) {
@@ -38,9 +38,29 @@ function CreateProduct() {
     }
   }
 
-  function handleSubmit() {
+  async function handleImageUpload() {
+    const data = new FormData()
+    data.append('file', product.media)
+    data.append('upload_preset', 'NextShop')
+    data.append('cloud_name', 'dtkqu8s6e')
+    const res = await axios.post(process.env.CLOUDINARY_URL, data)
+    const mediaUrl = res.data.url
+    return mediaUrl
+  }
+
+  async function handleSubmit(event) {
     event.preventDefault()
-    console.log(product)
+    const mediaUrl = await handleImageUpload()
+    console.log({ mediaUrl })
+    // const url = `${baseUrl}/api/product`
+    // const { name, price, description } = product
+    // const payload = {
+    //   name,
+    //   price,
+    //   description,
+    //   mediaUrl,
+    // }
+    // await axios.post(url, payload)
     setProduct(init_prod)
     setSuccess(true)
   }

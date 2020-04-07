@@ -1,7 +1,8 @@
 {
   "build": {
     "env": {
-      "MONGO_SRV": "@mongo_srv"
+      "MONGO_SRV": "@mongo_srv",
+      "CLOUDINARY_URL": "@cloudinary_url"
     }
   }
 }
