@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { Row } from '@zeit-ui/react'
 import ProductList from '../components/Index/ProductList'
-
+import baseUrl from '../utils/baseUrl'
 import useViewPort from '../utils/hooks/width'
 
 function Home({ products }) {
@@ -28,7 +28,7 @@ function Home({ products }) {
 }
 
 Home.getInitialProps = async () => {
-  const url = 'http://localhost:3000/api/products'
+  const url = `${baseUrl}/api/products`
   const res = await axios.get(url)
 
   return {

@@ -1,8 +1,8 @@
 import axios from 'axios'
 import ProductSummary from '../components/Product/ProductSummary'
-import ProductAttributes from '../components/Product/ProductAttributes'
 import { Row, Col } from '@zeit-ui/react'
 import useViewPort from '../utils/hooks/width'
+import baseUrl from '../utils/baseUrl'
 
 function Product({ product }) {
   const { width } = useViewPort()
@@ -16,7 +16,7 @@ function Product({ product }) {
 }
 
 Product.getInitialProps = async ({ query: { _id } }) => {
-  const url = '/api/product'
+  const url = `${baseUrl}/api/product`
   const payload = { params: { _id } }
   const res = await axios.get(url, payload)
   return {
