@@ -172,6 +172,12 @@ function Header() {
           margin: none;
           padding: none;
         }
+        ul {
+          margin: 0;
+        }
+        li {
+          padding: 0 1rem;
+        }
       `}</style>
     </header>
   )
