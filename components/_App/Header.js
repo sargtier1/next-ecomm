@@ -9,11 +9,12 @@ import {
   LogOut,
   Edit,
 } from 'react-feather'
+import useViewPort from '../../utils/hooks/width'
 
 function Header() {
   const router = useRouter()
   const user = false
-  // const { width } = useViewPort()
+  const { width } = useViewPort()
 
   function isActive(route) {
     return route === router.pathname
@@ -167,7 +168,8 @@ function Header() {
         header {
           border: 1px solid #eaeaea;
           display: flex;
-          justify-content: space-around;
+          flex-direction: ${width <= 840 ? 'column' : 'row'};
+          justify-content: ${width <= 840 ? 'center' : 'space-around'};
           align-items: center;
           font-size: 1.25rem;
           width: 100%;
@@ -175,7 +177,9 @@ function Header() {
         }
         nav ul {
           display: flex;
+          flex-direction: ${width <= 840 ? 'column' : 'row'};
           align-items: center;
+          padding-inline-start: 0;
           justify-content: space-between;
           list-style-type: none;
           margin: none;
