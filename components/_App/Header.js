@@ -37,6 +37,7 @@ function Header() {
               <Link
                 style={{
                   alignItems: 'center',
+                  color: 'black',
                 }}
                 pure
                 block
@@ -44,7 +45,7 @@ function Header() {
               >
                 <ShoppingCart
                   size={25}
-                  style={{ marginRight: '.5rem' }}
+                  style={{ marginRight: '.5rem', color: 'black' }}
                   size={25}
                 />
                 <p>Cart</p>
@@ -64,7 +65,7 @@ function Header() {
                 >
                   <PlusSquare
                     size={25}
-                    style={{ marginRight: '.5rem' }}
+                    style={{ marginRight: '.5rem', color: 'black' }}
                     size={25}
                   />
                   <p>Create</p>
@@ -87,7 +88,7 @@ function Header() {
                   >
                     <User
                       size={25}
-                      style={{ marginRight: '.5rem' }}
+                      style={{ marginRight: '.5rem', color: 'black' }}
                       size={25}
                     />
                     <p>Account</p>
@@ -106,7 +107,7 @@ function Header() {
                   >
                     <LogOut
                       size={25}
-                      style={{ marginRight: '.5rem' }}
+                      style={{ marginRight: '.5rem', color: 'black' }}
                       size={25}
                     />
                     <p>Logout</p>
@@ -121,6 +122,7 @@ function Header() {
                   <Link
                     style={{
                       alignItems: 'center',
+                      color: 'black',
                     }}
                     pure
                     block
@@ -128,7 +130,7 @@ function Header() {
                   >
                     <LogIn
                       size={25}
-                      style={{ marginRight: '.5rem' }}
+                      style={{ marginRight: '.5rem', color: 'black' }}
                       size={25}
                     />
                     <p>Login</p>
@@ -140,6 +142,7 @@ function Header() {
                   <Link
                     style={{
                       alignItems: 'center',
+                      color: 'black',
                     }}
                     pure
                     block

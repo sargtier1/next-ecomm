@@ -7,10 +7,9 @@ import useViewPort from '../utils/hooks/width'
 function Product({ product }) {
   const { width } = useViewPort()
   return (
-    <Row justify='center' gap={width <= 840 ? .8 : 1}>
+    <Row justify='center' gap={width <= 840 ? 0.8 : 1}>
       <Col span={width <= 840 ? 24 : 12}>
         <ProductSummary {...product} />
-        <ProductAttributes {...product} />
       </Col>
     </Row>
   )

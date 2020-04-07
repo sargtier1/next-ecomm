@@ -1,4 +1,3 @@
-import AddProductToCart from './AddProductToCart'
 import { Image, Button, Fieldset, Note, Input } from '@zeit-ui/react'
 import useViewPort from '../../utils/hooks/width'
 
@@ -12,11 +11,6 @@ function ProductSummary({ name, mediaUrl, _id, price, description, sku }) {
       <Fieldset.Subtitle>{description}</Fieldset.Subtitle>
       <div className='container'>
         <div className='notes'>
-          <Note label='SKU' small type='success'>
-            {sku}
-          </Note>
-        </div>
-        <div className='notes'>
           <Note label='SKU' small type='warning'>
             {sku}
           </Note>
@@ -24,24 +18,16 @@ function ProductSummary({ name, mediaUrl, _id, price, description, sku }) {
       </div>
       <Fieldset.Footer>
         <Fieldset.Footer.Status>
-          Add to cart for ${price}
+          <Input placeholder='Quantity' />
         </Fieldset.Footer.Status>
         <Fieldset.Footer.Actions>
-          <Input
-            labelRight={
-              <Button auto size='mini'>
-                Add To Cart
-              </Button>
-            }
-            placeholder='Quantity'
-          />
+          <Button type='success' ghost auto>
+            Add To Cart
+          </Button>
         </Fieldset.Footer.Actions>
       </Fieldset.Footer>
-
       <Fieldset.Footer>
-        <Fieldset.Footer.Status>
-          Add to cart for ${price}
-        </Fieldset.Footer.Status>
+        <Fieldset.Footer.Status>Remove Item</Fieldset.Footer.Status>
         <Fieldset.Footer.Actions>
           <Button auto type='error' ghost>
             Delete Item
