@@ -1,39 +1,66 @@
-import { Image, Button, Fieldset, Note, Input } from '@zeit-ui/react'
+import { useState } from 'react'
+import { Image, Button, Fieldset, Note, Input, Modal } from '@zeit-ui/react'
+import { Trash2, ShoppingCart } from 'react-feather'
 import useViewPort from '../../utils/hooks/width'
 
 function ProductSummary({ name, mediaUrl, _id, price, description, sku }) {
   const { width } = useViewPort()
 
+  const [state, setState] = useState(false)
+  const handler = () => setState(true)
+  const closeHandler = (event) => {
+    setState(false)
+    console.log('closed')
+  }
+
   return (
-    <Fieldset>
-      <Fieldset.Title>{name}</Fieldset.Title>
-      <Image src={mediaUrl} width={450} alt={name} />
-      <Fieldset.Subtitle>{description}</Fieldset.Subtitle>
-      <div className='container'>
-        <div className='notes'>
-          <Note label='SKU' small type='warning'>
-            {sku}
-          </Note>
+    <>
+      <Fieldset>
+        <Fieldset.Title>
+          {name} | ${price}
+        </Fieldset.Title>
+        <Image src={mediaUrl} width={450} alt={name} />
+        <Fieldset.Subtitle>{description}</Fieldset.Subtitle>
+        <div className='container'>
+          <div className='notes'>
+            <Note label='SKU' small type='warning'>
+              {sku}
+            </Note>
+          </div>
         </div>
-      </div>
-      <Fieldset.Footer>
-        <Fieldset.Footer.Status>
-          <Input placeholder='Quantity' />
-        </Fieldset.Footer.Status>
-        <Fieldset.Footer.Actions>
-          <Button type='success' ghost auto>
-            Add To Cart
-          </Button>
-        </Fieldset.Footer.Actions>
-      </Fieldset.Footer>
-      <Fieldset.Footer>
-        <Fieldset.Footer.Status>Remove Item</Fieldset.Footer.Status>
-        <Fieldset.Footer.Actions>
-          <Button auto type='error' ghost>
-            Delete Item
-          </Button>
-        </Fieldset.Footer.Actions>
-      </Fieldset.Footer>
+        <Fieldset.Footer>
+          <Fieldset.Footer.Status>
+            <Input placeholder='Quantity' />
+          </Fieldset.Footer.Status>
+          <Fieldset.Footer.Actions>
+            <Button type='success' ghost auto>
+              <ShoppingCart style={{ marginRight: '.5rem' }} size={25} />
+              Add To Cart
+            </Button>
+          </Fieldset.Footer.Actions>
+        </Fieldset.Footer>
+        <Fieldset.Footer>
+          <Fieldset.Footer.Status>Remove Item</Fieldset.Footer.Status>
+          <Fieldset.Footer.Actions>
+            <Button auto type='error' ghost onClick={handler}>
+              <Trash2 style={{ marginRight: '.5rem' }} size={25} />
+              Delete Item
+            </Button>
+          </Fieldset.Footer.Actions>
+        </Fieldset.Footer>
+      </Fieldset>
+
+      <Modal open={state} onClose={closeHandler}>
+        <Modal.Title>Confirm Deletion</Modal.Title>
+        <Modal.Content>
+          <p>Are you sure you want to delete this product?</p>
+        </Modal.Content>
+        <Modal.Action passive>Cancel</Modal.Action>
+        <Modal.Action>
+          <Trash2 size={25} />
+          Delete
+        </Modal.Action>
+      </Modal>
       <style jsx>{`
         .container {
           display: flex;
@@ -45,7 +72,7 @@ function ProductSummary({ name, mediaUrl, _id, price, description, sku }) {
           margin: ${width <= 840 ? '.5rem 0' : '0'};
         }
       `}</style>
-    </Fieldset>
+    </>
   )
 }
 
