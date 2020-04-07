@@ -27,6 +27,7 @@ function CreateProduct() {
   const [product, setProduct] = useState(init_prod)
   const [mediaPreview, setMediaPreview] = useState(null)
   const [success, setSuccess] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   function handleChange(event) {
     const { name, value, files } = event.target
@@ -50,17 +51,20 @@ function CreateProduct() {
 
   async function handleSubmit(event) {
     event.preventDefault()
+    setLoading(true)
     const mediaUrl = await handleImageUpload()
     console.log({ mediaUrl })
-    // const url = `${baseUrl}/api/product`
-    // const { name, price, description } = product
-    // const payload = {
-    //   name,
-    //   price,
-    //   description,
-    //   mediaUrl,
-    // }
-    // await axios.post(url, payload)
+    const url = `${baseUrl}/api/product`
+    const { name, price, description } = product
+    const payload = {
+      name,
+      price,
+      description,
+      mediaUrl,
+    }
+    const res = await axios.post(url, payload)
+    setLoading(false)
+    console.log(res)
     setProduct(init_prod)
     setSuccess(true)
   }
@@ -151,7 +155,7 @@ function CreateProduct() {
             </Row>
             <Spacer y={1} />
             <Row justify='end'>
-              <Button ghost type='success'>
+              <Button ghost type='success' loading={loading}>
                 Add Item
               </Button>
             </Row>
