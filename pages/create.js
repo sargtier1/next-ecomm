@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   Input,
   Textarea,
@@ -15,6 +15,7 @@ import { FolderPlus } from 'react-feather'
 import useViewPort from '../utils/hooks/width'
 import axios from 'axios'
 import baseUrl from '../utils/baseUrl'
+import { set } from 'mongoose'
 
 const init_prod = {
   name: '',
@@ -28,6 +29,12 @@ function CreateProduct() {
   const [mediaPreview, setMediaPreview] = useState(null)
   const [success, setSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [disabled, setDisabled] = useState(true)
+
+  useEffect(() => {
+    const isProduct = Object.values(product).every((el) => Boolean(el))
+    isProduct ? setDisabled(false) : setDisabled(true)
+  }, [product])
 
   function handleChange(event) {
     const { name, value, files } = event.target
@@ -155,7 +162,12 @@ function CreateProduct() {
             </Row>
             <Spacer y={1} />
             <Row justify='end'>
-              <Button ghost type='success' loading={loading}>
+              <Button
+                ghost
+                type='success'
+                disabled={disabled || loading}
+                loading={loading}
+              >
                 Add Item
               </Button>
             </Row>
