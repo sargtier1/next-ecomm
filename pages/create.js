@@ -32,7 +32,7 @@ function CreateProduct() {
   return (
     <>
       <Row justify='center' gap={width < 850 ? 0.8 : 1}>
-        <Col span={width < 840 ? 24 : 12}>
+        <Col span={width < 840 ? 24 : 16}>
           <div className='title-wrapper'>
             <FolderPlus size={25} color='black' />
             <Text style={{ marginLeft: '.5rem' }} h1>
@@ -44,35 +44,50 @@ function CreateProduct() {
           <form action=''>
             <Row>
               <div className='form-wrapper'>
-                <Input
-                  clearable
-                  placeholder='Green Sofa'
-                  width='100%'
-                  value={inputs.name}
-                  onChange={handleOnChange}
-                >
-                  Name
-                </Input>
+                <Col span={width <= 840 ? 24 : 6}>
+                  <Input
+                    clearable
+                    placeholder='Green Sofa'
+                    width='100%'
+                    value={inputs.name}
+                    name='name'
+                    type='text'
+                    onChange={handleOnChange}
+                  >
+                    Name
+                  </Input>
+                </Col>
                 <Spacer />
-                <Input
-                  clearable
-                  placeholder='99.99'
-                  width='100%'
-                  value={inputs.price}
-                  onChange={handleOnChange}
-                >
-                  Price
-                </Input>
+                <Col span={width <= 840 ? 24 : 6}>
+                  <Input
+                    clearable
+                    placeholder='99.99'
+                    width='100%'
+                    value={inputs.price}
+                    name='price'
+                    min='0.00'
+                    step='0.01'
+                    type='number'
+                    onChange={handleOnChange}
+                  >
+                    Price
+                  </Input>
+                </Col>
                 <Spacer />
-                <Input
-                  clearable
-                  placeholder='Link media'
-                  width='100%'
-                  value={inputs.media}
-                  onChange={handleOnChange}
-                >
-                  Media
-                </Input>
+                <Col span={width <= 840 ? 24 : 12}>
+                  <Input
+                    clearable
+                    placeholder='Link media'
+                    width='100%'
+                    value={inputs.media}
+                    name='media'
+                    type='file'
+                    accept='image/*'
+                    onChange={handleOnChange}
+                  >
+                    Media
+                  </Input>
+                </Col>
               </div>
             </Row>
             <Spacer />
