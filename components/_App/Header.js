@@ -55,12 +55,13 @@ function Header() {
               </Link>
             </NextLink>
           </li>
-          {user && (
+          {!user && (
             <li>
               <NextLink href='/create'>
                 <Link
                   style={{
                     alignItems: 'center',
+                    color: 'black',
                   }}
                   pure
                   block
@@ -84,6 +85,7 @@ function Header() {
                   <Link
                     style={{
                       alignItems: 'center',
+                      color: 'black',
                     }}
                     pure
                     block
@@ -103,6 +105,7 @@ function Header() {
                   <Link
                     style={{
                       alignItems: 'center',
+                      color: 'black',
                     }}
                     pure
                     block

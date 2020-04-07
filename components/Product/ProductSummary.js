@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Router from 'next/router'
+import { useRouter } from 'next/router'
 import { Image, Button, Fieldset, Note, Input, Modal } from '@zeit-ui/react'
 import { Trash2, ShoppingCart } from 'react-feather'
 import axios from 'axios'
@@ -7,19 +7,19 @@ import baseUrl from '../../utils/baseUrl'
 import useViewPort from '../../utils/hooks/width'
 
 function ProductSummary({ name, mediaUrl, _id, price, description, sku }) {
+  const router = useRouter()
   const [state, setState] = useState(false)
-  // const router = useRouter()
 
   const handler = () => setState(true)
   const closeHandler = () => {
     setState(false)
   }
 
-  async function handleDelete() {
+  function handleDelete() {
     const url = `${baseUrl}/api/product`
     const payload = { params: { _id } }
-    await axios.delete(url, payload)
-    Router.back()
+    axios.delete(url, payload)
+    router.push('/')
   }
 
   const { width } = useViewPort()
