@@ -1,5 +1,5 @@
 import NextLink from 'next/link'
-import Router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { Link } from '@zeit-ui/react'
 import {
   ShoppingCart,
@@ -10,9 +10,12 @@ import {
   Edit,
 } from 'react-feather'
 
+import useViewPort from '../../utils/hooks/width'
+
 function Header() {
   const router = useRouter()
   const user = false
+  // const { width } = useViewPort()
 
   function isActive(route) {
     return route === router.pathname
@@ -28,7 +31,7 @@ function Header() {
         </NextLink>
       </div>
       <nav>
-        <ul>
+        <ul style={{ margin: 'none' }}>
           <li>
             <NextLink href='/cart'>
               <Link
@@ -44,10 +47,12 @@ function Header() {
                   style={{ marginRight: '.5rem' }}
                   size={25}
                 />
-                Cart
+                <p>Cart</p>
               </Link>
             </NextLink>
-            {user && (
+          </li>
+          {user && (
+            <li>
               <NextLink href='/create'>
                 <Link
                   style={{
@@ -62,13 +67,15 @@ function Header() {
                     style={{ marginRight: '.5rem' }}
                     size={25}
                   />
-                  Create
+                  <p>Create</p>
                 </Link>
               </NextLink>
-            )}
+            </li>
+          )}
 
-            {user ? (
-              <>
+          {user ? (
+            <>
+              <li>
                 <NextLink href='/account'>
                   <Link
                     style={{
@@ -83,10 +90,11 @@ function Header() {
                       style={{ marginRight: '.5rem' }}
                       size={25}
                     />
-                    Account
+                    <p>Account</p>
                   </Link>
                 </NextLink>
-
+              </li>
+              <li>
                 <NextLink href='/logout'>
                   <Link
                     style={{
@@ -101,12 +109,14 @@ function Header() {
                       style={{ marginRight: '.5rem' }}
                       size={25}
                     />
-                    Logout
+                    <p>Logout</p>
                   </Link>
                 </NextLink>
-              </>
-            ) : (
-              <>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
                 <NextLink href='/login'>
                   <Link
                     style={{
@@ -121,10 +131,11 @@ function Header() {
                       style={{ marginRight: '.5rem' }}
                       size={25}
                     />
-                    Login
+                    <p>Login</p>
                   </Link>
                 </NextLink>
-
+              </li>
+              <li>
                 <NextLink href='/signup'>
                   <Link
                     style={{
@@ -138,9 +149,9 @@ function Header() {
                     <p>Signup</p>
                   </Link>
                 </NextLink>
-              </>
-            )}
-          </li>
+              </li>
+            </>
+          )}
         </ul>
       </nav>
       <style jsx>{`
@@ -149,11 +160,17 @@ function Header() {
           display: flex;
           justify-content: space-around;
           align-items: center;
-          height: 85px;
           font-size: 1.25rem;
+          width: 100%;
+          background: #fffffff0;
         }
         nav ul {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
           list-style-type: none;
+          margin: none;
+          padding: none;
         }
       `}</style>
     </header>

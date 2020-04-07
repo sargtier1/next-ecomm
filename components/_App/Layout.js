@@ -39,6 +39,23 @@ class Layout extends React.Component {
         ) : (
           <main style={{ paddingTop: '1em' }}>{children}</main>
         )}
+        <style jsx global>{`
+          :root {
+            --bodyBg: #f0f4f8;
+            --progressBar: #54d1db;
+          }
+
+          body {
+            background: var(--bodyBg);
+            font-family: Helvetica, Sans-Serif;
+            color: #444444;
+            font-size: 9pt;
+            background-color: #fafafa;
+          }
+
+          #menu {
+          }
+        `}</style>
       </>
     )
   }
