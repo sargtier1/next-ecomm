@@ -1,4 +1,6 @@
-import { Col, Display, Text } from '@zeit-ui/react'
+import NextLink from 'next/link'
+
+import { Col, Display, Text, Link } from '@zeit-ui/react'
 
 // href:`/product?_id=${_id}`
 function ProductList({ products, width }) {
@@ -6,7 +8,7 @@ function ProductList({ products, width }) {
   return (
     <>
       {products &&
-        products.map(({ sku, name, mediaUrl, description, price, _id }) => (
+        products.map(({ name, mediaUrl, price, _id }) => (
           <Col span={width < 840 ? 24 : 12}>
             <Display
               shadow
@@ -17,10 +19,24 @@ function ProductList({ products, width }) {
                 </div>
               }
             >
-              <img width={375} src={mediaUrl} alt={name} />
+              <NextLink href={`/products/_id=${_id}`}>
+                <a>
+                  <img
+                    className='products'
+                    width={375}
+                    src={mediaUrl}
+                    alt={name}
+                  />
+                </a>
+              </NextLink>
             </Display>
           </Col>
         ))}
+      <style jsx>{`
+        .products:hover {
+          transform: translateY(-10px);
+        }
+      `}</style>
     </>
   )
 }
