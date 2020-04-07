@@ -8,7 +8,8 @@ import {
   Row,
   Col,
   Spacer,
-  useToasts,
+  Note,
+  Dot,
 } from '@zeit-ui/react'
 import { FolderPlus } from 'react-feather'
 import useViewPort from '../utils/hooks/width'
@@ -25,6 +26,8 @@ function CreateProduct() {
 
   const [mediaPreview, setMediaPreview] = useState(null)
 
+  const [success, setSuccess] = useState(false)
+
   function handleChange(event) {
     const { name, value, files } = event.target
     if (name === 'media') {
@@ -39,6 +42,7 @@ function CreateProduct() {
     event.preventDefault()
     console.log(product)
     setProduct(init_prod)
+    setSuccess(true)
   }
 
   const { width } = useViewPort()
@@ -54,6 +58,13 @@ function CreateProduct() {
           </div>
           <hr />
           <Spacer y={1} />
+          {success && (
+            <Note>
+              <Dot type='success'>
+                The item was successfully added to the store!
+              </Dot>
+            </Note>
+          )}
           <form onSubmit={handleSubmit}>
             <Row>
               <div className='form-wrapper'>
@@ -103,7 +114,7 @@ function CreateProduct() {
               </div>
             </Row>
             <Spacer />
-            {mediaPreview && <Image src={mediaPreview} />}
+            {mediaPreview && <Image width={250} src={mediaPreview} />}
             <Spacer />
             <Row>
               <div className='textarea-wrapper'>
