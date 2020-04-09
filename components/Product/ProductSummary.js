@@ -15,11 +15,10 @@ function ProductSummary({ name, mediaUrl, _id, price, description, sku }) {
     setState(false)
   }
 
-  function handleDelete() {
+  async function handleDelete() {
     const url = `${baseUrl}/api/product`
     const payload = { params: { _id } }
-    axios.delete(url, payload)
-    router.push('/')
+    await axios.delete(url, payload).then(router.push('/'))
   }
 
   const { width } = useViewPort()
@@ -68,10 +67,7 @@ function ProductSummary({ name, mediaUrl, _id, price, description, sku }) {
           <p>Are you sure you want to delete this product?</p>
         </Modal.Content>
         <Modal.Action passive>Cancel</Modal.Action>
-        <Modal.Action onClick={handleDelete}>
-          <Trash2 size={25} />
-          Delete
-        </Modal.Action>
+        <Modal.Action onClick={handleDelete}>Delete</Modal.Action>
       </Modal>
       <style jsx>{`
         .container {

@@ -85,6 +85,7 @@ function Signup() {
               {error}
             </Note>
           )}
+          <Spacer y={1} />
           <form onSubmit={handleSubmit}>
             <Row>
               <Col span={24}>
