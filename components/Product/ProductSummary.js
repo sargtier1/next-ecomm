@@ -60,6 +60,8 @@ function ProductSummary({ name, mediaUrl, _id, price, description, sku }) {
           </Fieldset.Footer.Actions>
         </Fieldset.Footer>
       </Fieldset>
+
+      {/* =================================== */}
       <Modal open={state} onClose={closeHandler}>
         <Modal.Title>Confirm Deletion</Modal.Title>
         <Modal.Content>
