@@ -38,7 +38,6 @@ export default async (req, res) => {
       email,
       password: hash,
     }).save()
-    console.log(`user ${newUser.name} successfully created`)
 
     // create token for user
     const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, {
