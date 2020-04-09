@@ -74,7 +74,7 @@ function CreateProduct() {
       setProduct(init_prod)
       setSuccess(true)
     } catch (e) {
-      catchErrors(e)
+      catchErrors(e, setError)
     } finally {
       setLoading(false)
     }
@@ -103,6 +103,7 @@ function CreateProduct() {
               {error}
             </Note>
           )}
+          <Spacer y={1} />
           <form onSubmit={handleSubmit}>
             <Row>
               <div className='form-wrapper'>

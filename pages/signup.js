@@ -13,6 +13,9 @@ import {
 import { Settings, Lock, Mail, User, Edit } from 'react-feather'
 import catchErrors from '../utils/catchErrors'
 import useViewPort from '../utils/hooks/width'
+import { handleLogin } from '../utils/auth'
+import axios from 'axios'
+import baseUrl from '../utils/baseUrl'
 
 const init_user = {
   name: '',
@@ -37,12 +40,17 @@ function Signup() {
     setUser((prevState) => ({ ...prevState, [name]: value }))
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
     try {
       setLoading(true)
       setError('')
-      console.log(user)
+      const url = `${baseUrl}/api/signup`
+      const payload = {
+        ...user,
+      }
+      const res = await axios.post(url, payload)
+      handleLogin(res.data)
     } catch (e) {
       catchErrors(e, setError)
     } finally {

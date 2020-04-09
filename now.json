@@ -2,7 +2,8 @@
   "build": {
     "env": {
       "MONGO_SRV": "@mongo_srv",
-      "CLOUDINARY_URL": "@cloudinary_url"
+      "CLOUDINARY_URL": "@cloudinary_url",
+      "JWT_SECRET": "@jwt_secret"
     }
   }
 }

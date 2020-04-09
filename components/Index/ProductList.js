@@ -18,7 +18,7 @@ function ProductList({ products, width }) {
               }
             >
               <NextLink href={`/product?_id=${_id}`}>
-                <a>
+                <a className='img-border'>
                   <img
                     className='products'
                     width={375}
@@ -31,6 +31,9 @@ function ProductList({ products, width }) {
           </Col>
         ))}
       <style jsx>{`
+        .img-border {
+          background: #79efe1;
+        }
         .products:hover {
           transform: translateY(-10px);
         }
