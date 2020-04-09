@@ -9,7 +9,6 @@ import {
   Col,
   Spacer,
   Note,
-  Dot,
 } from '@zeit-ui/react'
 import { FolderPlus } from 'react-feather'
 import useViewPort from '../utils/hooks/width'
@@ -58,9 +57,10 @@ function CreateProduct() {
   }
 
   async function handleSubmit(event) {
+    event.preventDefault()
     try {
-      event.preventDefault()
       setLoading(true)
+      setError('')
       const mediaUrl = await handleImageUpload()
       const url = `${baseUrl}/api/product`
       const { name, price, description } = product
@@ -70,8 +70,7 @@ function CreateProduct() {
         description,
         mediaUrl,
       }
-      const res = await axios.post(url, payload)
-      console.log(res)
+      await axios.post(url, payload)
       setProduct(init_prod)
       setSuccess(true)
     } catch (e) {
@@ -95,17 +94,13 @@ function CreateProduct() {
           <hr />
           <Spacer y={1} />
           {success && (
-            <Note>
-              <Dot type='success'>
-                The item was successfully added to the store!
-              </Dot>
+            <Note label='Success!' type='success'>
+              The item was successfully added to the store!
             </Note>
           )}
           {error && (
-            <Note>
-              <Dot type='error'>
-                Uh oh! {}
-              </Dot>
+            <Note type='error' label='Uh Oh!'>
+              {error}
             </Note>
           )}
           <form onSubmit={handleSubmit}>
