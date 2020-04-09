@@ -11,9 +11,9 @@ import {
 } from 'react-feather'
 import useViewPort from '../../utils/hooks/width'
 
-function Header() {
+function Header({ user }) {
+  console.log(user)
   const router = useRouter()
-  const user = false
   const { width } = useViewPort()
 
   function isActive(route) {
@@ -56,7 +56,7 @@ function Header() {
               </Link>
             </NextLink>
           </li>
-          {!user && (
+          {user && (
             <li>
               <NextLink href='/create'>
                 <Link

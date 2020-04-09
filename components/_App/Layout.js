@@ -24,14 +24,14 @@ class Layout extends React.Component {
   }
 
   render() {
-    const { children } = this.props
+    const { children, user } = this.props
     return (
       <>
         <Head>
           <HeadContent />
           <title>Next Shop</title>
         </Head>
-        <Header />
+        <Header user={user} />
         {this.state.loading ? (
           <main>
             <div className='loading-wrapper'>
