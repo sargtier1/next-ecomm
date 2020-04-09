@@ -1,4 +1,5 @@
 import App from 'next/app'
+import Router from 'next/router'
 import Layout from '../components/_App/Layout'
 import { parseCookies, destroyCookie } from 'nookies'
 import { redirectUser } from '../utils/auth'
@@ -47,6 +48,16 @@ class MyApp extends App {
     }
 
     return { pageProps }
+  }
+
+  componentDidMount() {
+    window.addEventListener('storage', this.syncLogout)
+  }
+
+  syncLogout = (e) => {
+    if (event.key === 'logout') {
+      Router.push('/login')
+    }
   }
 
   render() {
