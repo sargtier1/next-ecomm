@@ -1,6 +1,6 @@
 import App from 'next/app'
 import Layout from '../components/_App/Layout'
-import { parseCookies } from 'nookies'
+import { parseCookies, destroyCookie } from 'nookies'
 import { redirectUser } from '../utils/auth'
 import baseUrl from '../utils/baseUrl'
 import axios from 'axios'
@@ -29,9 +29,20 @@ class MyApp extends App {
         const url = `${baseUrl}/api/account`
         const res = await axios.get(url, payload)
         const user = res.data
+        const isRoot = user.role === 'root'
+        const isAdmin = user.role === 'admin'
+        // redirect from create page
+        const isNotPermitted =
+          !(isRoot || isAdmin) && ctx.pathname === '/create'
+        if (isNotPermitted) {
+          redirectUser(ctx, '/')
+        }
         pageProps.user = user
       } catch (e) {
         console.error('Error getting user', e)
+        //  throw out invalid token
+        destroyCookie(ctx, 'token')
+        redirectUser(ctx, '/login')
       }
     }
 

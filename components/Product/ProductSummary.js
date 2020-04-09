@@ -6,9 +6,21 @@ import axios from 'axios'
 import baseUrl from '../../utils/baseUrl'
 import useViewPort from '../../utils/hooks/width'
 
-function ProductSummary({ name, mediaUrl, _id, price, description, sku }) {
+function ProductSummary({
+  name,
+  mediaUrl,
+  _id,
+  price,
+  description,
+  sku,
+  user,
+}) {
   const router = useRouter()
   const [state, setState] = useState(false)
+
+  const isRoot = user && user.role === 'root'
+  const isAdmin = user && user.role === 'admin'
+  const isRootOrAdmin = isRoot || isAdmin
 
   const handler = () => setState(true)
   const closeHandler = () => {
@@ -49,15 +61,17 @@ function ProductSummary({ name, mediaUrl, _id, price, description, sku }) {
             </Button>
           </Fieldset.Footer.Actions>
         </Fieldset.Footer>
-        <Fieldset.Footer>
-          <Fieldset.Footer.Status>Remove Item</Fieldset.Footer.Status>
-          <Fieldset.Footer.Actions>
-            <Button auto type='error' ghost onClick={handler}>
-              <Trash2 style={{ marginRight: '.5rem' }} size={25} />
-              Delete Item
-            </Button>
-          </Fieldset.Footer.Actions>
-        </Fieldset.Footer>
+        {isRootOrAdmin && (
+          <Fieldset.Footer>
+            <Fieldset.Footer.Status>Remove Item</Fieldset.Footer.Status>
+            <Fieldset.Footer.Actions>
+              <Button auto type='error' ghost onClick={handler}>
+                <Trash2 style={{ marginRight: '.5rem' }} size={25} />
+                Delete Item
+              </Button>
+            </Fieldset.Footer.Actions>
+          </Fieldset.Footer>
+        )}
       </Fieldset>
 
       {/* =================================== */}

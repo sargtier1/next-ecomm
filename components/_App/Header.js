@@ -10,10 +10,15 @@ import {
   Edit,
 } from 'react-feather'
 import useViewPort from '../../utils/hooks/width'
+import { handleLogout } from '../../utils/auth'
 
 function Header({ user }) {
-  console.log(user)
   const router = useRouter()
+
+  const isRoot = user && user.role === 'root'
+  const isAdmin = user && user.role === 'admin'
+  const isRootOrAdmin = isRoot || isAdmin
+
   const { width } = useViewPort()
 
   function isActive(route) {
@@ -56,7 +61,7 @@ function Header({ user }) {
               </Link>
             </NextLink>
           </li>
-          {user && (
+          {isRootOrAdmin && (
             <li>
               <NextLink href='/create'>
                 <Link
@@ -102,24 +107,23 @@ function Header({ user }) {
                 </NextLink>
               </li>
               <li>
-                <NextLink href='/logout'>
-                  <Link
-                    style={{
-                      alignItems: 'center',
-                      color: 'black',
-                    }}
-                    pure
-                    block
-                    underline={isActive('/logout')}
-                  >
-                    <LogOut
-                      size={25}
-                      style={{ marginRight: '.5rem', color: 'black' }}
-                      size={25}
-                    />
-                    <p>Logout</p>
-                  </Link>
-                </NextLink>
+                <Link
+                  style={{
+                    alignItems: 'center',
+                    color: 'black',
+                  }}
+                  pure
+                  block
+                  underline={isActive('/logout')}
+                  onClick={handleLogout}
+                >
+                  <LogOut
+                    size={25}
+                    style={{ marginRight: '.5rem', color: 'black' }}
+                    size={25}
+                  />
+                  <p>Logout</p>
+                </Link>
               </li>
             </>
           ) : (
@@ -173,6 +177,7 @@ function Header({ user }) {
           align-items: center;
           font-size: 1.25rem;
           width: 100%;
+          height: 86px;
           background: #fffffff0;
         }
         nav ul {
