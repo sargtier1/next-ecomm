@@ -1,11 +1,5 @@
-import {
-  Description,
-  Image,
-  Avatar,
-  Text,
-  Fieldset,
-  Button,
-} from '@zeit-ui/react'
+import { Fieldset, Button } from '@zeit-ui/react'
+import { ShoppingCart } from 'react-feather'
 
 function CartSummary() {
   return (

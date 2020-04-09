@@ -29,7 +29,7 @@ class Layout extends React.Component {
       <>
         <Head>
           <HeadContent />
-          <title>ReactReserve</title>
+          <title>Next Shop</title>
         </Head>
         <Header />
         {this.state.loading ? (
