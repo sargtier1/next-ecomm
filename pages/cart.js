@@ -30,6 +30,7 @@ Cart.getInitialProps = async (ctx) => {
       products: [],
     }
   }
+  
   const url = `${baseUrl}/api/cart`
   const payload = {
     headers: {
@@ -37,6 +38,7 @@ Cart.getInitialProps = async (ctx) => {
     },
   }
   const res = await axios.get(url, payload)
+
   return {
     products: res.data,
   }

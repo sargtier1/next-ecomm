@@ -1,6 +1,17 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import { Image, Button, Fieldset, Note, Input, Modal } from '@zeit-ui/react'
+import {
+  Image,
+  Button,
+  Fieldset,
+  Note,
+  Input,
+  Modal,
+  Row,
+  Col,
+  Spacer,
+  Text,
+} from '@zeit-ui/react'
 import { Trash2, ShoppingCart } from 'react-feather'
 import axios from 'axios'
 import baseUrl from '../../utils/baseUrl'
@@ -37,19 +48,51 @@ function ProductSummary({
 
   return (
     <>
+      <Row justify='center' align='middle' gap={width <= 840 ? 0.5 : 1}>
+        <div className='summary-container'>
+          <Col span={width <= 840 ? 24 : 12}>
+            <Image src={mediaUrl} width={550} height={550} alt={name} />
+          </Col>
+          <Col span={width <= 840 ? 24 : 12}>
+            {/* <div className='container'>
+              <div className='notes'> */}
+            <Text h1>{name}</Text>
+            <Text type='secondary' h2>
+              $ {price}
+            </Text>
+            <Note className='note' label='SKU' small type='warning'>
+              {sku}
+            </Note>
+            <Spacer y={2} />
+            <form action=''>
+              <Input
+                clearable
+                name='quantity'
+                min='0.00'
+                step='1'
+                type='number'
+                labelRight={
+                  <Text type='success' p>
+                    Add to cart
+                  </Text>
+                }
+              />
+            </form>
+          </Col>
+        </div>
+      </Row>
+      <Spacer y={2} />
+
+      <Row justify='center' align='middle' gap={width <= 840 ? 0.5 : 1}>
+        <Col span={width <= 840 ? 24 : 12}></Col>
+      </Row>
+
       <Fieldset>
         <Fieldset.Title>
           {name} -- ${price}
         </Fieldset.Title>
         <Image src={mediaUrl} width={550} alt={name} />
         <Fieldset.Subtitle>{description}</Fieldset.Subtitle>
-        <div className='container'>
-          <div className='notes'>
-            <Note label='SKU' small type='warning'>
-              {sku}
-            </Note>
-          </div>
-        </div>
         <Fieldset.Footer>
           <Fieldset.Footer.Status>
             <Input placeholder='Quantity' />
@@ -61,6 +104,7 @@ function ProductSummary({
             </Button>
           </Fieldset.Footer.Actions>
         </Fieldset.Footer>
+
         {isRootOrAdmin && (
           <Fieldset.Footer>
             <Fieldset.Footer.Status>Remove Item</Fieldset.Footer.Status>
@@ -89,9 +133,15 @@ function ProductSummary({
           justify-content: space-between;
           flex-direction: ${width <= 840 ? 'column' : 'row'};
         }
-        .notes {
-          width: ${width <= 840 ? '100%' : '48%'};
-          margin: ${width <= 840 ? '.5rem 0' : '0'};
+        .note {
+          width: ${width <= 840 ? '100%' : '50%'};
+        }
+        .summary-container {
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          flex-direction: ${width <= 840 ? 'column' : 'row'};
+          width: 100%;
         }
       `}</style>
     </>
