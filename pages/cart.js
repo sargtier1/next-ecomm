@@ -8,7 +8,7 @@ import baseUrl from '../utils/baseUrl'
 
 function Cart({ products }) {
   const { width } = useViewPort()
-
+  console.log(products)
   return (
     <Row justify='center' gap={width <= 840 ? 0.8 : 1}>
       <Col span={width <= 840 ? 24 : 14}>
@@ -30,7 +30,7 @@ Cart.getInitialProps = async (ctx) => {
       products: [],
     }
   }
-  
+
   const url = `${baseUrl}/api/cart`
   const payload = {
     headers: {

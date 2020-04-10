@@ -10,7 +10,10 @@ export default async (req, res) => {
     return res.status(401).send('No authorization token')
   }
   try {
-    jwt.verify(req.header.authorization, process.env.JWT_SECRET)
+    const { userId } = jwt.verify(
+      req.headers.authorization,
+      process.env.JWT_SECRET
+    )
     const cart = await Cart.findOne({ user: userId }).populate({
       path: 'products.product',
       model: 'Product',

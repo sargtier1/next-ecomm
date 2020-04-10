@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import {
   Image,
   Button,
-  Fieldset,
   Note,
   Input,
   Modal,
@@ -12,7 +11,7 @@ import {
   Spacer,
   Text,
 } from '@zeit-ui/react'
-import { Trash2, ShoppingCart } from 'react-feather'
+import { Trash2 } from 'react-feather'
 import axios from 'axios'
 import baseUrl from '../../utils/baseUrl'
 import useViewPort from '../../utils/hooks/width'
@@ -81,43 +80,22 @@ function ProductSummary({
           </Col>
         </div>
       </Row>
-      <Spacer y={2} />
-
+      <Spacer y={1} />
       <Row justify='center' align='middle' gap={width <= 840 ? 0.5 : 1}>
-        <Col span={width <= 840 ? 24 : 12}></Col>
-      </Row>
-
-      <Fieldset>
-        <Fieldset.Title>
-          {name} -- ${price}
-        </Fieldset.Title>
-        <Image src={mediaUrl} width={550} alt={name} />
-        <Fieldset.Subtitle>{description}</Fieldset.Subtitle>
-        <Fieldset.Footer>
-          <Fieldset.Footer.Status>
-            <Input placeholder='Quantity' />
-          </Fieldset.Footer.Status>
-          <Fieldset.Footer.Actions>
-            <Button type='success' ghost auto>
-              <ShoppingCart style={{ marginRight: '.5rem' }} size={25} />
-              Add To Cart
+        <Col span={width <= 840 ? 24 : 20}>
+          <Text h1>About this product:</Text>
+          <Text h2 type='secondary'>
+            {description}
+          </Text>
+          <Spacer y={1} />
+          {isRootOrAdmin && (
+            <Button auto type='error' ghost onClick={handler}>
+              <Trash2 style={{ marginRight: '.5rem' }} size={25} />
+              Delete Item
             </Button>
-          </Fieldset.Footer.Actions>
-        </Fieldset.Footer>
-
-        {isRootOrAdmin && (
-          <Fieldset.Footer>
-            <Fieldset.Footer.Status>Remove Item</Fieldset.Footer.Status>
-            <Fieldset.Footer.Actions>
-              <Button auto type='error' ghost onClick={handler}>
-                <Trash2 style={{ marginRight: '.5rem' }} size={25} />
-                Delete Item
-              </Button>
-            </Fieldset.Footer.Actions>
-          </Fieldset.Footer>
-        )}
-      </Fieldset>
-
+          )}
+        </Col>
+      </Row>
       {/* =================================== */}
       <Modal open={state} onClose={closeHandler}>
         <Modal.Title>Confirm Deletion</Modal.Title>
