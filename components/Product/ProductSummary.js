@@ -4,7 +4,6 @@ import {
   Image,
   Button,
   Note,
-  Input,
   Modal,
   Row,
   Col,
@@ -15,6 +14,7 @@ import { Trash2 } from 'react-feather'
 import axios from 'axios'
 import baseUrl from '../../utils/baseUrl'
 import useViewPort from '../../utils/hooks/width'
+import AddProductToCart from '../Product/AddProductToCart'
 
 function ProductSummary({
   name,
@@ -53,8 +53,6 @@ function ProductSummary({
             <Image src={mediaUrl} width={550} height={550} alt={name} />
           </Col>
           <Col span={width <= 840 ? 24 : 12}>
-            {/* <div className='container'>
-              <div className='notes'> */}
             <Text h1>{name}</Text>
             <Text type='secondary' h2>
               $ {price}
@@ -63,23 +61,12 @@ function ProductSummary({
               {sku}
             </Note>
             <Spacer y={2} />
-            <form action=''>
-              <Input
-                clearable
-                name='quantity'
-                min='0.00'
-                step='1'
-                type='number'
-                labelRight={
-                  <Text type='success' p>
-                    Add to cart
-                  </Text>
-                }
-              />
-            </form>
+            <AddProductToCart user={user} productId={_id} />
           </Col>
         </div>
       </Row>
+      <Spacer y={1} />
+      <hr />
       <Spacer y={1} />
       <Row justify='center' align='middle' gap={width <= 840 ? 0.5 : 1}>
         <Col span={width <= 840 ? 24 : 20}>
@@ -87,7 +74,7 @@ function ProductSummary({
           <Text h2 type='secondary'>
             {description}
           </Text>
-          <Spacer y={1} />
+          <Spacer y={2} />
           {isRootOrAdmin && (
             <Button auto type='error' ghost onClick={handler}>
               <Trash2 style={{ marginRight: '.5rem' }} size={25} />
