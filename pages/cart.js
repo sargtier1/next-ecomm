@@ -6,16 +6,17 @@ import { parseCookies } from 'nookies'
 import axios from 'axios'
 import baseUrl from '../utils/baseUrl'
 
-function Cart({ products }) {
+function Cart({ products, user }) {
   const { width } = useViewPort()
+  console.log(user)
   console.log(products)
   return (
     <Row justify='center' gap={width <= 840 ? 0.8 : 1}>
       <Col span={width <= 840 ? 24 : 14}>
         <Fieldset>
-          <CartItemList products={products} />
+          <CartItemList user={user} products={products} width={width} />
           <Fieldset.Footer>
-            <CartSummary />
+            <CartSummary products={products} width={width} />
           </Fieldset.Footer>
         </Fieldset>
       </Col>
