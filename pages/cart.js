@@ -7,16 +7,17 @@ import axios from 'axios'
 import baseUrl from '../utils/baseUrl'
 
 function Cart({ products, user }) {
+  const [cartProducts, setCartProducts] = React.useState(products)
   const { width } = useViewPort()
   console.log(user)
-  console.log(products)
+  console.log(cartProducts)
   return (
     <Row justify='center' gap={width <= 840 ? 0.8 : 1}>
       <Col span={width <= 840 ? 24 : 14}>
         <Fieldset>
-          <CartItemList user={user} products={products} width={width} />
+          <CartItemList user={user} products={cartProducts} width={width} />
           <Fieldset.Footer>
-            <CartSummary products={products} width={width} />
+            <CartSummary products={cartProducts} width={width} />
           </Fieldset.Footer>
         </Fieldset>
       </Col>
@@ -26,23 +27,14 @@ function Cart({ products, user }) {
 
 Cart.getInitialProps = async (ctx) => {
   const { token } = parseCookies(ctx)
+  console.log(token)
   if (!token) {
-    return {
-      products: [],
-    }
+    return { products: [] }
   }
-
   const url = `${baseUrl}/api/cart`
-  const payload = {
-    headers: {
-      Authorization: token,
-    },
-  }
-  const res = await axios.get(url, payload)
-
-  return {
-    products: res.data,
-  }
+  const payload = { headers: { Authorization: token } }
+  const response = await axios.get(url, payload)
+  return { products: response.data }
 }
 
 export default Cart

@@ -14,7 +14,7 @@ import { useRouter } from 'next/router'
 export default function CartItemList({ products, user, width }) {
   const router = useRouter()
 
-  if (products.length === '0') {
+  if (products && products.length === 0) {
     return (
       <>
         <Row justify='center'>
@@ -30,7 +30,6 @@ export default function CartItemList({ products, user, width }) {
             <Fieldset.Title style={{ margin: ' 2rem 0 1rem' }}>
               No products in your cart
             </Fieldset.Title>
-
             <Fieldset.Subtitle>
               {user ? (
                 <Button onClick={() => router.push('/')} type='success'>
@@ -63,7 +62,7 @@ export default function CartItemList({ products, user, width }) {
           <Fieldset.Title style={{ margin: ' 1rem 0 1rem' }}>
             <p>
               Current Cart for{' '}
-              <Code style={{ color: '#f81ce5' }}>{user.name}</Code>
+              {/* <Code style={{ color: '#f81ce5' }}>{user.name}</Code> */}
             </p>
           </Fieldset.Title>
 
@@ -83,8 +82,6 @@ export default function CartItemList({ products, user, width }) {
                 ))}
             </Col>
           </Row>
-
-          {/* </Col> */}
         </div>
       </Row>
     </>
