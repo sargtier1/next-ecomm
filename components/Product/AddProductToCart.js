@@ -43,7 +43,11 @@ function AddProductToCart({ user, productId }) {
           onChange={(e) => setQuantity(Number(e.target.value))}
         />
         {user ? (
-          <Button onClick={handleAddProductToCart} auto disabled={loading}>
+          <Button
+            onClick={handleAddProductToCart}
+            disabled={loading}
+            loading={loading}
+          >
             Add to cart
           </Button>
         ) : (
@@ -54,7 +58,7 @@ function AddProductToCart({ user, productId }) {
       </div>
       <Spacer y={1} />
       {success && (
-        <Note type='success' label='Success!'>
+        <Note type='success' label='Success'>
           Your order went through!
         </Note>
       )}

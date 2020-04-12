@@ -51,20 +51,17 @@ async function handlePutRequest(req, res) {
       req.headers.authorization,
       process.env.JWT_SECRET
     )
-    // Get user cart based on userId
     const cart = await Cart.findOne({ user: userId })
-    // Check if product already exists in cart
     const productExists = cart.products.some((doc) =>
       ObjectId(productId).equals(doc.product)
     )
-    // If so, increment quantity (by number provided to request)
+
     if (productExists) {
       await Cart.findOneAndUpdate(
         { _id: cart._id, 'products.product': productId },
         { $inc: { 'products.$.quantity': quantity } }
       )
     } else {
-      // If not, add new product with given quantity
       const newProduct = { quantity, product: productId }
       await Cart.findOneAndUpdate(
         { _id: cart._id },
