@@ -36,7 +36,7 @@ function Signup() {
   }, [user])
 
   function handleChange(e) {
-    const { name, value } = event.target
+    const { name, value } = e.target
     setUser((prevState) => ({ ...prevState, [name]: value }))
   }
 

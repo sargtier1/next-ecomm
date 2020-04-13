@@ -5,17 +5,42 @@ import useViewPort from '../utils/hooks/width'
 import { parseCookies } from 'nookies'
 import axios from 'axios'
 import baseUrl from '../utils/baseUrl'
+import cookie from 'js-cookie'
+
+/**
+ *
+ *  State isn't updating like it is supposed too. The products are storing in state correctly.
+ */
 
 function Cart({ products, user }) {
   const [cartProducts, setCartProducts] = React.useState(products)
   const { width } = useViewPort()
-  console.log(user)
+
+  async function handleRemoveFromCart(productId) {
+    const url = `${baseUrl}/api/cart`
+    const token = cookie.get('token')
+    const payload = {
+      params: { productId },
+      headers: {
+        Authorization: token,
+      },
+    }
+    const res = await axios.delete(url, payload)
+    setCartProducts(res.data)
+  }
+
   console.log(cartProducts)
+  console.log(products)
   return (
     <Row justify='center' gap={width <= 840 ? 0.8 : 1}>
-      <Col span={width <= 840 ? 24 : 14}>
+      <Col span={width <= 840 ? 24 : 16}>
         <Fieldset>
-          <CartItemList user={user} products={cartProducts} width={width} />
+          <CartItemList
+            handleRemoveFromCart={handleRemoveFromCart}
+            user={user}
+            products={cartProducts}
+            width={width}
+          />
           <Fieldset.Footer>
             <CartSummary products={cartProducts} width={width} />
           </Fieldset.Footer>
@@ -27,14 +52,14 @@ function Cart({ products, user }) {
 
 Cart.getInitialProps = async (ctx) => {
   const { token } = parseCookies(ctx)
-  console.log(token)
   if (!token) {
     return { products: [] }
   }
   const url = `${baseUrl}/api/cart`
   const payload = { headers: { Authorization: token } }
-  const response = await axios.get(url, payload)
-  return { products: response.data }
+  const res = await axios.get(url, payload)
+  console.log(res.data)
+  return { products: res.data }
 }
 
 export default Cart
