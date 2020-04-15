@@ -34,10 +34,8 @@ class Layout extends React.Component {
         </Head>
         <Header user={user} />
         {this.state.loading ? (
-          <main>
-            <div className='loading-wrapper'>
-              <Spinner size='large' />
-            </div>
+          <main className='loading-wrapper'>
+            <Spinner size='large' />
           </main>
         ) : (
           <main style={{ paddingTop: '1em' }}>{children}</main>
@@ -57,6 +55,11 @@ class Layout extends React.Component {
           }
           main {
             min-height: 65vh;
+          }
+          .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
           }
         `}</style>
       </>

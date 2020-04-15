@@ -110,9 +110,9 @@ function CartCard({
           <Col span={12}>
             <Link href={`/product?_id=${_id}`}>
               <a className='product-card'>
-                <Text h2>{name}</Text>
+                <Text h4>{name}</Text>
                 <Spacer y={0.5} />
-                <Text h4 type='secondary'>
+                <Text h5 type='secondary'>
                   {quantity} x ${price}
                 </Text>
               </a>

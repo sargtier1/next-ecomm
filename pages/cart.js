@@ -27,8 +27,6 @@ function Cart({ products, user }) {
     setCartProducts(res.data)
   }
 
-  console.log('api', products)
-  console.log('state', cartProducts)
   return (
     <Row justify='center' gap={1}>
       <Col span={24}>
@@ -55,7 +53,7 @@ Cart.getInitialProps = async (ctx) => {
   const url = `${baseUrl}/api/cart`
   const payload = { headers: { Authorization: token } }
   const res = await axios.get(url, payload)
-  console.log(res.data)
+
   return { products: res.data }
 }
 
