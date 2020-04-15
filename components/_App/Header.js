@@ -8,6 +8,7 @@ import {
   LogIn,
   LogOut,
   Edit,
+  Plus,
 } from 'react-feather'
 import ToggleTheme from './toggleTheme'
 import { handleLogout } from '../../utils/auth'
@@ -17,7 +18,6 @@ export default function Header({ user }) {
   const isAdmin = user && user.role === 'admin'
   const isRootOrAdmin = isRoot || isAdmin
 
-  console.log(user)
   return (
     <header>
       <div className='section-wrapper'>
@@ -29,192 +29,86 @@ export default function Header({ user }) {
           </NextLink>
         </div>
         <div className='center'>
-          <ButtonDropdown>
-            <ButtonDropdown.Item main>Menu</ButtonDropdown.Item>
-            <ButtonDropdown.Item>
-              <NextLink href='/cart'>
-                <a className='nav-items'>
-                  <ShoppingCart size={15} /> <Spacer x={0.25} />
-                  Cart
-                </a>
-              </NextLink>
-            </ButtonDropdown.Item>
-
-            <ButtonDropdown.Item>
-              <NextLink href='/create'>
-                <a className='nav-items'>
-                  <PlusSquare size={15} /> <Spacer x={0.25} />
-                  Create
-                </a>
-              </NextLink>
-            </ButtonDropdown.Item>
-
-            <ButtonDropdown.Item>
-              <NextLink href='/account'>
-                <a className='nav-items'>
-                  <User size={15} /> <Spacer x={0.25} />
-                  Account
-                </a>
-              </NextLink>
-            </ButtonDropdown.Item>
-
-            <ButtonDropdown.Item>
-              <a onClick={handleLogout} className='nav-items'>
-                <LogOut size={15} /> <Spacer x={0.25} />
-                Logout
-              </a>
-            </ButtonDropdown.Item>
-
-            <ButtonDropdown.Item>
-              <NextLink href='/login'>
-                <a className='nav-items'>
-                  <LogIn size={15} /> <Spacer x={0.25} />
-                  Login
-                </a>
-              </NextLink>
-            </ButtonDropdown.Item>
-
-            <ButtonDropdown.Item>
-              <NextLink href='/signup'>
-                <a className='nav-items'>
-                  <Edit size={15} /> <Spacer x={0.25} />
-                  Signup
-                </a>
-              </NextLink>
-            </ButtonDropdown.Item>
-
-            <ButtonDropdown.Item>
-              <ToggleTheme />
-            </ButtonDropdown.Item>
-          </ButtonDropdown>
-          {/* 
-          <NextNextLink href='/cart'>
-              <Link
-                style={{
-                  alignItems: 'center',
-                  color: 'black',
-                }}
-                pure
-                block
-                underline={isActive('/cart')}
-              >
-                <ShoppingCart
-                  size={25}
-                  style={{ marginRight: '.5rem', color: 'black' }}
-                  size={25}
-                />
-                <p>Cart</p>
-              </Link>
-            </NextLink>
-          </li>
-          {isRootOrAdmin && (
-            <li>
-              <NextLink href='/create'>
-                <Link
-                  style={{
-                    alignItems: 'center',
-                    color: 'black',
-                  }}
-                  pure
-                  block
-                  underline={isActive('/create')}
-                >
-                  <PlusSquare
-                    size={25}
-                    style={{ marginRight: '.5rem', color: 'black' }}
-                    size={25}
-                  />
-                  <p>Create</p>
-                </Link>
-              </NextLink>
-            </li>
-          )}
-
           {user ? (
-            <>
-              <li>
+            <ButtonDropdown>
+              <ButtonDropdown.Item main>Menu</ButtonDropdown.Item>
+              <ButtonDropdown.Item>
+                <NextLink href='/cart'>
+                  <a className='nav-items'>
+                    <ShoppingCart size={15} /> <Spacer x={0.25} />
+                    Cart
+                  </a>
+                </NextLink>
+              </ButtonDropdown.Item>
+
+              {isRootOrAdmin && (
+                <ButtonDropdown.Item>
+                  <NextLink href='/create'>
+                    <a className='nav-items'>
+                      <Plus size={15} /> <Spacer x={0.25} />
+                      Create
+                    </a>
+                  </NextLink>
+                </ButtonDropdown.Item>
+              )}
+
+              <ButtonDropdown.Item>
                 <NextLink href='/account'>
-                  <Link
-                    style={{
-                      alignItems: 'center',
-                      color: 'black',
-                    }}
-                    pure
-                    block
-                    underline={isActive('/account')}
-                  >
-                    <User
-                      size={25}
-                      style={{ marginRight: '.5rem', color: 'black' }}
-                      size={25}
-                    />
-                    <p>Account</p>
-                  </Link>
+                  <a className='nav-items'>
+                    <User size={15} /> <Spacer x={0.25} />
+                    Account
+                  </a>
                 </NextLink>
-              </li>
-              <li>
-                <Link
-                  style={{
-                    alignItems: 'center',
-                    color: 'black',
-                  }}
-                  pure
-                  block
-                  underline={isActive('/logout')}
-                  onClick={handleLogout}
-                >
-                  <LogOut
-                    size={25}
-                    style={{ marginRight: '.5rem', color: 'black' }}
-                    size={25}
-                  />
-                  <p>Logout</p>
-                </Link>
-              </li>
-            </>
+              </ButtonDropdown.Item>
+
+              <ButtonDropdown.Item>
+                <a onClick={handleLogout} className='nav-items'>
+                  <LogOut size={15} /> <Spacer x={0.25} />
+                  Logout
+                </a>
+              </ButtonDropdown.Item>
+
+              <ButtonDropdown.Item>
+                <ToggleTheme />
+              </ButtonDropdown.Item>
+            </ButtonDropdown>
           ) : (
-            <>
-              <li>
+            <ButtonDropdown>
+              <ButtonDropdown.Item main>Menu</ButtonDropdown.Item>
+              <ButtonDropdown.Item>
+                <NextLink href='/cart'>
+                  <a className='nav-items'>
+                    <ShoppingCart size={15} /> <Spacer x={0.25} />
+                    Cart
+                  </a>
+                </NextLink>
+              </ButtonDropdown.Item>
+
+              <ButtonDropdown.Item>
                 <NextLink href='/login'>
-                  <Link
-                    style={{
-                      alignItems: 'center',
-                      color: 'black',
-                    }}
-                    pure
-                    block
-                    underline={isActive('/login')}
-                  >
-                    <LogIn
-                      size={25}
-                      style={{ marginRight: '.5rem', color: 'black' }}
-                      size={25}
-                    />
-                    <p>Login</p>
-                  </Link>
+                  <a className='nav-items'>
+                    <LogIn size={15} /> <Spacer x={0.25} />
+                    Login
+                  </a>
                 </NextLink>
-              </li>
-              <li>
+              </ButtonDropdown.Item>
+
+              <ButtonDropdown.Item>
                 <NextLink href='/signup'>
-                  <Link
-                    style={{
-                      alignItems: 'center',
-                      color: 'black',
-                    }}
-                    pure
-                    block
-                    underline={isActive('/signup')}
-                  >
-                    <Edit size={25} style={{ marginRight: '.5rem' }} />
-                    <p>Signup</p>
-                  </Link>
+                  <a className='nav-items'>
+                    <Edit size={15} /> <Spacer x={0.25} />
+                    Signup
+                  </a>
                 </NextLink>
-              </li>
-            </>
-          )} */}
+              </ButtonDropdown.Item>
+
+              <ButtonDropdown.Item>
+                <ToggleTheme />
+              </ButtonDropdown.Item>
+            </ButtonDropdown>
+          )}
         </div>
       </div>
-      <div className='section-wrapper nav-content'></div>
       <style jsx>{`
         .nav-items {
           display: flex;
