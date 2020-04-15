@@ -1,7 +1,7 @@
 import NextLink from 'next/link'
-import { useRouter } from 'next/router'
-import { Link, Text } from '@zeit-ui/react'
+import { Text, ButtonDropdown, Spacer, Link } from '@zeit-ui/react'
 import {
+  Box,
   ShoppingCart,
   User,
   PlusSquare,
@@ -9,40 +9,86 @@ import {
   LogOut,
   Edit,
 } from 'react-feather'
-import useViewPort from '../../utils/hooks/width'
+import ToggleTheme from './toggleTheme'
 import { handleLogout } from '../../utils/auth'
 
-function Header({ user }) {
-  const router = useRouter()
-
+export default function Header({ user }) {
   const isRoot = user && user.role === 'root'
   const isAdmin = user && user.role === 'admin'
   const isRootOrAdmin = isRoot || isAdmin
 
-  const { width } = useViewPort()
-
-  function isActive(route) {
-    return route === router.pathname
-  }
-
+  console.log(user)
   return (
     <header>
-      <div>
-        <NextLink href='/'>
-          <Link style={{ display: 'flex', alignItems: 'center' }} pure block>
-            <img
-              style={{ width: '35px', marginRight: '.5rem' }}
-              src='./logo.svg'
-              alt='logo'
-            />
-            <Text h3>Next Shop</Text>
-          </Link>
-        </NextLink>
-      </div>
-      <nav>
-        <ul style={{ margin: 'none' }}>
-          <li>
-            <NextLink href='/cart'>
+      <div className='section-wrapper'>
+        <div className='center'>
+          <NextLink href='/'>
+            <a>
+              <Box size={45} />
+            </a>
+          </NextLink>
+        </div>
+        <div className='center'>
+          <ButtonDropdown>
+            <ButtonDropdown.Item main>Menu</ButtonDropdown.Item>
+            <ButtonDropdown.Item>
+              <NextLink href='/cart'>
+                <a className='nav-items'>
+                  <ShoppingCart size={15} /> <Spacer x={0.25} />
+                  Cart
+                </a>
+              </NextLink>
+            </ButtonDropdown.Item>
+
+            <ButtonDropdown.Item>
+              <NextLink href='/create'>
+                <a className='nav-items'>
+                  <PlusSquare size={15} /> <Spacer x={0.25} />
+                  Create
+                </a>
+              </NextLink>
+            </ButtonDropdown.Item>
+
+            <ButtonDropdown.Item>
+              <NextLink href='/account'>
+                <a className='nav-items'>
+                  <User size={15} /> <Spacer x={0.25} />
+                  Account
+                </a>
+              </NextLink>
+            </ButtonDropdown.Item>
+
+            <ButtonDropdown.Item>
+              <a onClick={handleLogout} className='nav-items'>
+                <LogOut size={15} /> <Spacer x={0.25} />
+                Logout
+              </a>
+            </ButtonDropdown.Item>
+
+            <ButtonDropdown.Item>
+              <NextLink href='/login'>
+                <a className='nav-items'>
+                  <LogIn size={15} /> <Spacer x={0.25} />
+                  Login
+                </a>
+              </NextLink>
+            </ButtonDropdown.Item>
+
+            <ButtonDropdown.Item>
+              <NextLink href='/signup'>
+                <a className='nav-items'>
+                  <Edit size={15} /> <Spacer x={0.25} />
+                  Signup
+                </a>
+              </NextLink>
+            </ButtonDropdown.Item>
+
+            <ButtonDropdown.Item>
+              <ToggleTheme />
+            </ButtonDropdown.Item>
+          </ButtonDropdown>
+          {/* 
+          <NextNextLink href='/cart'>
               <Link
                 style={{
                   alignItems: 'center',
@@ -165,40 +211,35 @@ function Header({ user }) {
                 </NextLink>
               </li>
             </>
-          )}
-        </ul>
-      </nav>
+          )} */}
+        </div>
+      </div>
+      <div className='section-wrapper nav-content'></div>
       <style jsx>{`
-        header {
-          border: 1px solid #eaeaea;
+        .nav-items {
           display: flex;
-          flex-direction: ${width <= 840 ? 'column' : 'row'};
-          justify-content: ${width <= 840 ? 'center' : 'space-around'};
+          justify-content: center;
           align-items: center;
-          font-size: 1.25rem;
-          width: 100%;
-          height: 86px;
-          background: #fffffff0;
         }
-        nav ul {
+        .section-wrapper {
           display: flex;
-          flex-direction: ${width <= 840 ? 'column' : 'row'};
-          align-items: center;
-          padding-inline-start: 0;
           justify-content: space-between;
-          list-style-type: none;
-          margin: none;
-          padding: none;
+          margin: 1rem;
         }
-        ul {
-          margin: 0;
+        .nav-content {
+          width: 100%;
+          height: 100%;
         }
-        li {
-          padding: 0 1rem;
+        header {
+          display: flex;
+          flex-direction: column;
+          padding: 1rem;
+        }
+        a {
+          text-decoration: none;
+          color: inherit;
         }
       `}</style>
     </header>
   )
 }
-
-export default Header

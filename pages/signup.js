@@ -12,7 +12,6 @@ import {
 } from '@zeit-ui/react'
 import { Settings, Lock, Mail, User, Edit } from 'react-feather'
 import catchErrors from '../utils/catchErrors'
-import useViewPort from '../utils/hooks/width'
 import { handleLogin } from '../utils/auth'
 import axios from 'axios'
 import baseUrl from '../utils/baseUrl'
@@ -61,9 +60,8 @@ function Signup() {
     }
   }
 
-  const { width } = useViewPort
   return (
-    <Row justify='center' gap={width <= 840 ? 0.5 : 1}>
+    <Row justify='center' gap={1}>
       <Col style={{ maxWidth: '820px' }} span={24}>
         <Note label={false} type='success'>
           <div className='title-wrapper'>

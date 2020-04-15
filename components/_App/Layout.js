@@ -25,6 +25,7 @@ class Layout extends React.Component {
 
   render() {
     const { children, user } = this.props
+
     return (
       <>
         <Head>
@@ -53,13 +54,6 @@ class Layout extends React.Component {
           :root {
             --bodyBg: #f0f4f8;
             --progressBar: #54d1db;
-          }
-          body {
-            background: var(--bodyBg);
-            font-family: Helvetica, Sans-Serif;
-            color: #444444;
-            font-size: 9pt;
-            background-color: #fafafa;
           }
           main {
             min-height: 65vh;

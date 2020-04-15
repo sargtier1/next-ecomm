@@ -1,7 +1,6 @@
 import CartItemList from '../components/Cart/CartItemList'
 import CartSummary from '../components/Cart/CartSummary'
 import { Row, Col, Fieldset } from '@zeit-ui/react'
-import useViewPort from '../utils/hooks/width'
 import { parseCookies } from 'nookies'
 import axios from 'axios'
 import baseUrl from '../utils/baseUrl'
@@ -14,7 +13,6 @@ import cookie from 'js-cookie'
 
 function Cart({ products, user }) {
   const [cartProducts, setCartProducts] = React.useState(products)
-  const { width } = useViewPort()
 
   async function handleRemoveFromCart(productId) {
     const url = `${baseUrl}/api/cart`
@@ -29,20 +27,19 @@ function Cart({ products, user }) {
     setCartProducts(res.data)
   }
 
-  console.log(cartProducts)
-  console.log(products)
+  console.log('api', products)
+  console.log('state', cartProducts)
   return (
-    <Row justify='center' gap={width <= 840 ? 0.8 : 1}>
-      <Col span={width <= 840 ? 24 : 16}>
+    <Row justify='center' gap={1}>
+      <Col span={24}>
         <Fieldset>
           <CartItemList
             handleRemoveFromCart={handleRemoveFromCart}
             user={user}
             products={cartProducts}
-            width={width}
           />
           <Fieldset.Footer>
-            <CartSummary products={cartProducts} width={width} />
+            <CartSummary products={cartProducts} />
           </Fieldset.Footer>
         </Fieldset>
       </Col>

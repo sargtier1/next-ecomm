@@ -1,14 +1,12 @@
 import axios from 'axios'
 import ProductSummary from '../components/Product/ProductSummary'
 import { Row, Col } from '@zeit-ui/react'
-import useViewPort from '../utils/hooks/width'
 import baseUrl from '../utils/baseUrl'
 
 function Product({ product, user }) {
-  const { width } = useViewPort()
   return (
-    <Row justify='center' gap={width <= 840 ? 0.8 : 1}>
-      <Col span={width <= 840 ? 24 : 18}>
+    <Row justify='center' gap={1}>
+      <Col span={24}>
         <ProductSummary user={user} {...product} />
       </Col>
     </Row>

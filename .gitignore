@@ -5,5 +5,5 @@ dist
 next.config.*
 now.json
 .now
-.evn]
+.env
 .env.build

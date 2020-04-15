@@ -11,7 +11,6 @@ import {
   Note,
 } from '@zeit-ui/react'
 import { FolderPlus } from 'react-feather'
-import useViewPort from '../utils/hooks/width'
 import axios from 'axios'
 import baseUrl from '../utils/baseUrl'
 import catchErrors from '../utils/catchErrors'
@@ -80,11 +79,10 @@ function CreateProduct() {
     }
   }
 
-  const { width } = useViewPort()
   return (
     <>
-      <Row justify='center' gap={width < 850 ? 0.8 : 1}>
-        <Col span={width < 840 ? 24 : 16}>
+      <Row justify='center' gap={1}>
+        <Col span={20}>
           <div className='title-wrapper'>
             <FolderPlus size={25} color='black' />
             <Text style={{ marginLeft: '.5rem' }} h1>
@@ -107,7 +105,7 @@ function CreateProduct() {
           <form onSubmit={handleSubmit}>
             <Row>
               <div className='form-wrapper'>
-                <Col span={width <= 840 ? 24 : 6}>
+                <Col span={12}>
                   <Input
                     clearable
                     placeholder='Green Sofa'
@@ -121,7 +119,7 @@ function CreateProduct() {
                   </Input>
                 </Col>
                 <Spacer />
-                <Col span={width <= 840 ? 24 : 6}>
+                <Col span={12}>
                   <Input
                     clearable
                     placeholder='99.99'
@@ -137,7 +135,7 @@ function CreateProduct() {
                   </Input>
                 </Col>
                 <Spacer />
-                <Col span={width <= 840 ? 24 : 12}>
+                <Col span={20}>
                   <Input
                     clearable
                     placeholder='Link media'
@@ -194,7 +192,7 @@ function CreateProduct() {
         }
         .form-wrapper {
           display: flex;
-          flex-direction: ${width <= 840 ? 'column' : 'row'};
+          flex-direction: row;
           width: 100%;
         }
         .textarea-wrapper {

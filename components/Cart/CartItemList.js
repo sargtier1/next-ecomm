@@ -12,12 +12,7 @@ import {
 } from '@zeit-ui/react'
 import { useRouter } from 'next/router'
 
-export default function CartItemList({
-  products,
-  user,
-  width,
-  handleRemoveFromCart,
-}) {
+export default function CartItemList({ products, user, handleRemoveFromCart }) {
   const router = useRouter()
 
   if (products && products.length === 0) {
@@ -83,7 +78,6 @@ export default function CartItemList({
                     price={product.price}
                     description={product.description}
                     src={product.mediaUrl}
-                    width={width}
                     _id={product._id}
                     handleRemoveFromCart={handleRemoveFromCart}
                   />
@@ -101,24 +95,19 @@ function CartCard({
   name,
   price,
   src,
-  width,
+
   _id,
   handleRemoveFromCart,
 }) {
   return (
     <>
       <Card hoverable shadow>
-        <Row
-          justify='center'
-          align='middle'
-          gap={1}
-          style={{ flexDirection: width <= 840 ? 'column' : 'row' }}
-        >
-          <Col span={width <= 840 ? 24 : 8}>
+        <Row justify='center' align='middle' gap={1}>
+          <Col span={8}>
             <Image src={src} width='100%' />
           </Col>
           <Spacer x={1} />
-          <Col span={width <= 840 ? 24 : 12}>
+          <Col span={12}>
             <Link href={`/product?_id=${_id}`}>
               <a className='product-card'>
                 <Text h2>{name}</Text>
@@ -130,7 +119,7 @@ function CartCard({
             </Link>
           </Col>
           <Spacer x={1} />
-          <Col span={width <= 840 ? 24 : 4}>
+          <Col span={4}>
             <Button
               style={{
                 display: 'flex',
@@ -144,7 +133,7 @@ function CartCard({
               ghost
               // size={width <= 840 ? 'mini' : ''}
             >
-              {width <= 840 ? 'Remove Item' : 'X'}
+              X
             </Button>
           </Col>
         </Row>
@@ -153,12 +142,12 @@ function CartCard({
       <Spacer y={2} />
       <style jsx>{`
         .product-card {
-          text-decoration: none;
+          text-decoration: none;s
         }
         .product-card:hover {
           text-decoration: underline;
           color: #0070f3;
-          fontweight: bold;
+          font-weight: bold;
         }
       `}</style>
     </>

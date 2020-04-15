@@ -10,13 +10,11 @@ import {
   Spacer,
   Text,
 } from '@zeit-ui/react'
-import { Trash2 } from 'react-feather'
 import axios from 'axios'
 import baseUrl from '../../utils/baseUrl'
-import useViewPort from '../../utils/hooks/width'
 import AddProductToCart from '../Product/AddProductToCart'
 
-function ProductSummary({
+export default function ProductSummary({
   name,
   mediaUrl,
   _id,
@@ -43,41 +41,43 @@ function ProductSummary({
     await axios.delete(url, payload).then(router.push('/'))
   }
 
-  const { width } = useViewPort()
-
   return (
     <>
-      <Row justify='center' align='middle' gap={width <= 840 ? 0.5 : 1}>
+      <Row justify='center' align='middle' gap={0.5}>
         <div className='summary-container'>
-          <Col span={width <= 840 ? 24 : 12}>
-            <Image src={mediaUrl} width={550} height={550} alt={name} />
-          </Col>
-          <Col span={width <= 840 ? 24 : 12}>
-            <Text h1>{name}</Text>
-            <Text type='secondary' h2>
-              $ {price}
-            </Text>
-            <Note className='note' label='SKU' small type='warning'>
-              {sku}
-            </Note>
-            <Spacer y={2} />
-            <AddProductToCart user={user} productId={_id} />
-          </Col>
+          <div>
+            <Col span={24}>
+              <Image src={mediaUrl} width={350} height={400} alt={name} />
+            </Col>
+          </div>
+
+          <div>
+            <Col span={24}>
+              <Text h2>{name}</Text>
+              <Text type='secondary' h3>
+                $ {price}
+              </Text>
+              <Note className='note' label='SKU' small type='warning'>
+                {sku}
+              </Note>
+              <Spacer y={2} />
+              <AddProductToCart user={user} productId={_id} />
+            </Col>
+          </div>
         </div>
       </Row>
       <Spacer y={1} />
       <hr />
       <Spacer y={1} />
-      <Row justify='center' align='middle' gap={width <= 840 ? 0.5 : 1}>
-        <Col span={width <= 840 ? 24 : 20}>
-          <Text h1>About this product:</Text>
-          <Text h2 type='secondary'>
+      <Row justify='center' align='middle' gap={1}>
+        <Col span={24}>
+          <Text h3>About this product:</Text>
+          <Text h4 type='secondary'>
             {description}
           </Text>
           <Spacer y={2} />
           {isRootOrAdmin && (
             <Button auto type='error' ghost onClick={handler}>
-              <Trash2 style={{ marginRight: '.5rem' }} size={25} />
               Delete Item
             </Button>
           )}
@@ -96,21 +96,25 @@ function ProductSummary({
         .container {
           display: flex;
           justify-content: space-between;
-          flex-direction: ${width <= 840 ? 'column' : 'row'};
+          flex-direction: column;
         }
         .note {
-          width: ${width <= 840 ? '100%' : '50%'};
+          width: 100%;
         }
         .summary-container {
           display: flex;
           justify-content: space-around;
           align-items: center;
-          flex-direction: ${width <= 840 ? 'column' : 'row'};
+          flex-direction: row;
           width: 100%;
+        }
+
+        @media (max-width: 840px) {
+          .summary-container {
+            flex-direction: column;
+          }
         }
       `}</style>
     </>
   )
 }
-
-export default ProductSummary

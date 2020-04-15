@@ -1,12 +1,18 @@
 import App from 'next/app'
 import Router from 'next/router'
 import Layout from '../components/_App/Layout'
+import { ZEITUIProvider, CSSBaseline } from '@zeit-ui/react'
+import ThemeContext from '../utils/context/theme'
 import { parseCookies, destroyCookie } from 'nookies'
 import { redirectUser } from '../utils/auth'
 import baseUrl from '../utils/baseUrl'
 import axios from 'axios'
 
 class MyApp extends App {
+  state = {
+    themeType: 'light',
+  }
+
   // merges props from custom app and individual page components
   static async getInitialProps({ Component, ctx }) {
     //
@@ -54,6 +60,12 @@ class MyApp extends App {
     window.addEventListener('storage', this.syncLogout)
   }
 
+  // switchThemes() {
+  //   this.setState((prevState) =>
+  //     prevState === 'dark' ? { themeType: 'light' } : { themeType: 'dark' }
+  //   )
+  // }
+
   syncLogout = (e) => {
     if (event.key === 'logout') {
       Router.push('/login')
@@ -63,9 +75,20 @@ class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props
     return (
-      <Layout {...pageProps}>
-        <Component {...pageProps} />
-      </Layout>
+      <ThemeContext.Provider
+        value={{
+          themeType: this.state.themeType,
+          switchThemes: this.switchThemes,
+        }}
+      >
+        <ZEITUIProvider theme={{ type: 'light' }}>
+          <CSSBaseline>
+            <Layout {...pageProps}>
+              <Component {...pageProps} />
+            </Layout>
+          </CSSBaseline>
+        </ZEITUIProvider>
+      </ThemeContext.Provider>
     )
   }
 }
