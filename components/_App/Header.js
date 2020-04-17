@@ -10,7 +10,6 @@ import {
   Edit,
   Plus,
 } from 'react-feather'
-import ToggleTheme from './toggleTheme'
 import { handleLogout } from '../../utils/auth'
 
 export default function Header({ user }) {
@@ -67,10 +66,6 @@ export default function Header({ user }) {
                   Logout
                 </a>
               </ButtonDropdown.Item>
-
-              <ButtonDropdown.Item>
-                <ToggleTheme />
-              </ButtonDropdown.Item>
             </ButtonDropdown>
           ) : (
             <ButtonDropdown>
@@ -100,10 +95,6 @@ export default function Header({ user }) {
                     Signup
                   </a>
                 </NextLink>
-              </ButtonDropdown.Item>
-
-              <ButtonDropdown.Item>
-                <ToggleTheme />
               </ButtonDropdown.Item>
             </ButtonDropdown>
           )}

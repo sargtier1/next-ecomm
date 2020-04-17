@@ -1,3 +1,4 @@
+import React from "react";
 import CartItemList from '../components/Cart/CartItemList'
 import CartSummary from '../components/Cart/CartSummary'
 import { Row, Col, Fieldset } from '@zeit-ui/react'
@@ -26,7 +27,8 @@ function Cart({ products, user }) {
     const res = await axios.delete(url, payload)
     setCartProducts(res.data)
   }
-
+  console.log(products)
+  console.log(cartProducts)
   return (
     <Row justify='center' gap={1}>
       <Col span={24}>

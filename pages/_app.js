@@ -9,13 +9,7 @@ import baseUrl from '../utils/baseUrl'
 import axios from 'axios'
 
 class MyApp extends App {
-  state = {
-    themeType: 'light',
-  }
-
-  // merges props from custom app and individual page components
   static async getInitialProps({ Component, ctx }) {
-    //
     const { token } = parseCookies(ctx)
 
     let pageProps = {}
@@ -34,20 +28,18 @@ class MyApp extends App {
       try {
         const payload = { headers: { Authorization: token } }
         const url = `${baseUrl}/api/account`
-        const res = await axios.get(url, payload)
-        const user = res.data
+        const response = await axios.get(url, payload)
+        const user = response.data
         const isRoot = user.role === 'root'
         const isAdmin = user.role === 'admin'
-        // redirect from create page
         const isNotPermitted =
           !(isRoot || isAdmin) && ctx.pathname === '/create'
         if (isNotPermitted) {
           redirectUser(ctx, '/')
         }
         pageProps.user = user
-      } catch (e) {
-        console.error('Error getting user', e)
-        //  throw out invalid token
+      } catch (error) {
+        console.error('Error getting current user', error)
         destroyCookie(ctx, 'token')
         redirectUser(ctx, '/login')
       }
@@ -60,35 +52,22 @@ class MyApp extends App {
     window.addEventListener('storage', this.syncLogout)
   }
 
-  // switchThemes() {
-  //   this.setState((prevState) =>
-  //     prevState === 'dark' ? { themeType: 'light' } : { themeType: 'dark' }
-  //   )
-  // }
-
-  syncLogout = (e) => {
+  syncLogout = (event) => {
     if (event.key === 'logout') {
+      console.log('logged out from storage')
       Router.push('/login')
     }
   }
-
   render() {
     const { Component, pageProps } = this.props
     return (
-      <ThemeContext.Provider
-        value={{
-          themeType: this.state.themeType,
-          switchThemes: this.switchThemes,
-        }}
-      >
-        <ZEITUIProvider theme={{ type: 'light' }}>
-          <CSSBaseline>
-            <Layout {...pageProps}>
-              <Component {...pageProps} />
-            </Layout>
-          </CSSBaseline>
-        </ZEITUIProvider>
-      </ThemeContext.Provider>
+      <ZEITUIProvider theme={{ type: 'light' }}>
+        <CSSBaseline>
+          <Layout {...pageProps}>
+            <Component {...pageProps} />
+          </Layout>
+        </CSSBaseline>
+      </ZEITUIProvider>
     )
   }
 }

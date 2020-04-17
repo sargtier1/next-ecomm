@@ -1,3 +1,4 @@
+import React from 'react'
 import { Fieldset, Button, Spacer } from '@zeit-ui/react'
 import { ShoppingCart } from 'react-feather'
 import calculateCartTotal from '../../utils/calculateCartTotal'

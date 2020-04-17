@@ -45,7 +45,6 @@ class Layout extends React.Component {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-top: 40ch;
           }
         `}</style>
         <style jsx global>{`
