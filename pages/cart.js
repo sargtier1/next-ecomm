@@ -5,15 +5,13 @@ import { Row, Col, Fieldset } from '@zeit-ui/react'
 import { parseCookies } from 'nookies'
 import axios from 'axios'
 import baseUrl from '../utils/baseUrl'
+import catchErrors from '../utils/catchErrors'
 import cookie from 'js-cookie'
-
-/**
- *
- *  State isn't updating like it is supposed too. The products are storing in state correctly.
- */
 
 function Cart({ products, user }) {
   const [cartProducts, setCartProducts] = React.useState(products)
+  const [success, setSuccess] = React.useState(false)
+  const [loading, setLoading] = React.useState(false)
 
   async function handleRemoveFromCart(productId) {
     const url = `${baseUrl}/api/cart`
@@ -27,8 +25,21 @@ function Cart({ products, user }) {
     const res = await axios.delete(url, payload)
     setCartProducts(res.data)
   }
-  console.log(products)
-  console.log(cartProducts)
+
+  async function handleCheckout(paymentData) {
+    try {
+      const url = `$baseUrl/api/checkout`
+      const token = cookie.get('token')
+      const payload = { paymentData }
+      const headers = { headers: { Authorization: token } }
+      axios.post(url, payload, headers)
+    } catch (e) {
+      console.error(e)
+      catchErrors(e, window.alert)
+    } finally {
+    }
+  }
+
   return (
     <Row justify='center' gap={1}>
       <Col span={24}>
@@ -39,7 +50,10 @@ function Cart({ products, user }) {
             products={cartProducts}
           />
           <Fieldset.Footer>
-            <CartSummary products={cartProducts} />
+            <CartSummary
+              products={cartProducts}
+              handleCheckout={handleCheckout}
+            />
           </Fieldset.Footer>
         </Fieldset>
       </Col>
