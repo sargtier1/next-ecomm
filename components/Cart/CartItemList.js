@@ -19,7 +19,6 @@ export default function CartItemList({ products, user, handleRemoveFromCart }) {
   return (
     <>
       <Row justify='center'>
-        {/* <Col span={24}> */}
         <div
           style={{
             display: 'flex',
@@ -111,7 +110,6 @@ function CartCard({ quantity, name, price, src, _id, handleRemoveFromCart }) {
               type='secondary'
               auto
               ghost
-              // size={width <= 840 ? 'mini' : ''}
             >
               X
             </Button>
