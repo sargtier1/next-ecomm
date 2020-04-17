@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import CartItemList from '../components/Cart/CartItemList'
 import CartSummary from '../components/Cart/CartSummary'
 import { Row, Col, Fieldset } from '@zeit-ui/react'
@@ -54,9 +54,8 @@ Cart.getInitialProps = async (ctx) => {
   }
   const url = `${baseUrl}/api/cart`
   const payload = { headers: { Authorization: token } }
-  const res = await axios.get(url, payload)
-
-  return { products: res.data }
+  const re = await axios.get(url, payload)
+  return { products: re.data }
 }
 
 export default Cart
