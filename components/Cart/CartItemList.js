@@ -15,8 +15,7 @@ import { useRouter } from 'next/router'
 export default function CartItemList({ products, user, handleRemoveFromCart }) {
   const router = useRouter()
   const isEmpty = products.length === 0
-  console.log(isEmpty)
-  console.log(products)
+
   return (
     <>
       <Row justify='center'>
@@ -54,7 +53,6 @@ export default function CartItemList({ products, user, handleRemoveFromCart }) {
                   <Code style={{ color: '#f81ce5' }}>{user.name}</Code>
                 </p>
               </Fieldset.Title>
-
               <Row gap={0.8} justify='space-around'>
                 <Col span={24}>
                   {products &&
@@ -80,15 +78,7 @@ export default function CartItemList({ products, user, handleRemoveFromCart }) {
   )
 }
 
-function CartCard({
-  quantity,
-  name,
-  price,
-  src,
-
-  _id,
-  handleRemoveFromCart,
-}) {
+function CartCard({ quantity, name, price, src, _id, handleRemoveFromCart }) {
   return (
     <>
       <Card hoverable shadow>
@@ -117,7 +107,7 @@ function CartCard({
                 alignItems: 'center',
                 margin: 'auto',
               }}
-              onClick={handleRemoveFromCart(_id)}
+              onClick={() => handleRemoveFromCart(_id)}
               type='secondary'
               auto
               ghost
