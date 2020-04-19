@@ -8,13 +8,40 @@ import {
   Spacer,
   Image,
   Text,
+  Note,
   Code,
 } from '@zeit-ui/react'
 import { useRouter } from 'next/router'
 
-export default function CartItemList({ products, user, handleRemoveFromCart }) {
+export default function CartItemList({
+  products,
+  user,
+  handleRemoveFromCart,
+  success,
+}) {
   const router = useRouter()
   const isEmpty = products.length === 0
+
+  if (success === true) {
+    return (
+      <>
+        <Row justify='center'>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
+            }}
+          >
+            <Fieldset.Title style={{ margin: ' 2rem 0 1rem' }}>
+              <Note type='success'>Your order payment has been accepted</Note>
+            </Fieldset.Title>
+          </div>
+        </Row>
+      </>
+    )
+  }
 
   return (
     <>
@@ -48,8 +75,7 @@ export default function CartItemList({ products, user, handleRemoveFromCart }) {
             <>
               <Fieldset.Title style={{ margin: ' 1rem 0 1rem' }}>
                 <p>
-                  Current Cart for{' '}
-                  <Code style={{ color: '#f81ce5' }}>{user.name}</Code>
+                  Current Cart for <Code>{user.name}</Code>
                 </p>
               </Fieldset.Title>
               <Row gap={0.8} justify='space-around'>

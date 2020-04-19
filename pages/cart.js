@@ -18,9 +18,7 @@ function Cart({ products, user }) {
     const token = cookie.get('token')
     const payload = {
       params: { productId },
-      headers: {
-        Authorization: token,
-      },
+      headers: { Authorization: token },
     }
     const res = await axios.delete(url, payload)
     setCartProducts(res.data)
@@ -28,15 +26,18 @@ function Cart({ products, user }) {
 
   async function handleCheckout(paymentData) {
     try {
-      const url = `$baseUrl/api/checkout`
+      setLoading(true)
+      const url = `${baseUrl}/api/checkout`
       const token = cookie.get('token')
       const payload = { paymentData }
       const headers = { headers: { Authorization: token } }
-      axios.post(url, payload, headers)
+      await axios.post(url, payload, headers)
+      setSuccess(true)
     } catch (e) {
       console.error(e)
       catchErrors(e, window.alert)
     } finally {
+      setLoading(false)
     }
   }
 
@@ -48,11 +49,13 @@ function Cart({ products, user }) {
             handleRemoveFromCart={handleRemoveFromCart}
             user={user}
             products={cartProducts}
+            success={success}
           />
           <Fieldset.Footer>
             <CartSummary
               products={cartProducts}
               handleCheckout={handleCheckout}
+              success={success}
             />
           </Fieldset.Footer>
         </Fieldset>
