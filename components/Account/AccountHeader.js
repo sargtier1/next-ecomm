@@ -1,7 +1,13 @@
 import { Fieldset, Spacer, useTheme, Dot } from '@zeit-ui/react'
 import { User } from 'react-feather'
 
-export default function AccountHeader({ role, email, name, createdAt }) {
+export default function AccountHeader({
+  role,
+  email,
+  name,
+  createdAt,
+  formatDate,
+}) {
   const { palette } = useTheme()
   return (
     <>
@@ -25,7 +31,7 @@ export default function AccountHeader({ role, email, name, createdAt }) {
           {email}
         </Fieldset.Subtitle>
         <Fieldset.Subtitle style={{ color: 'white' }}>
-          {createdAt}
+          {formatDate(createdAt)}
         </Fieldset.Subtitle>
         <Spacer y={1} />
         <div style={{ color: 'white' }}>

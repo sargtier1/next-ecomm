@@ -12,7 +12,7 @@ import {
 import { Folder, Mail } from 'react-feather'
 import { useRouter } from 'next/router'
 
-function AccountOrders({ orders }) {
+function AccountOrders({ orders, formatDate }) {
   const router = useRouter()
   return (
     <>
@@ -52,9 +52,9 @@ function AccountOrders({ orders }) {
             <Collapse
               key={order._id}
               title={
-                <Tag type='secondary' invert='true'>
-                  {order.createdAt}
-                </Tag>
+                <Note label='Date ordered' type='success'>
+                  {formatDate(order.createdAt)}
+                </Note>
               }
             >
               <div className='title-wrapper'>
@@ -82,9 +82,9 @@ function AccountOrders({ orders }) {
                     </div>
                     <Spacer y={1} />
                     <div>
-                      <Note type='warning' label='sku'>
-                        {p.product.sku}
-                      </Note>
+                      <Tag type='warning' label='sku'>
+                        SKU: {p.product.sku}
+                      </Tag>
                     </div>
                   </div>
                 ))}

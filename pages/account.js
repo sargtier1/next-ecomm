@@ -5,6 +5,7 @@ import { Row, Col, Fieldset } from '@zeit-ui/react'
 import { parseCookies } from 'nookies'
 import baseUrl from '../utils/baseUrl'
 import axios from 'axios'
+import formatDate from '../utils/formatDate'
 
 function Account({ user, orders }) {
   return (
@@ -12,8 +13,8 @@ function Account({ user, orders }) {
       <Row justify='center' gap={1}>
         <Col span={24}>
           <Fieldset>
-            <AccountHeader {...user} />
-            <AccountOrders orders={orders} />
+            <AccountHeader {...user} formatDate={formatDate} />
+            <AccountOrders orders={orders} formatDate={formatDate} />
           </Fieldset>
           {/* {user.role === 'root' && <AccountPermissions />} */}
         </Col>
