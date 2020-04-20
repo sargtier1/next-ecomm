@@ -2,7 +2,6 @@ import { Row, Col, Button, Spacer } from '@zeit-ui/react'
 import { useRouter } from 'next/router'
 
 function ProductPagination({ totalPages }) {
-  console.log(totalPages)
   const router = useRouter()
   return (
     <>
