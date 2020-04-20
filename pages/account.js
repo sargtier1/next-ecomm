@@ -7,7 +7,6 @@ import baseUrl from '../utils/baseUrl'
 import axios from 'axios'
 
 function Account({ user, orders }) {
-  console.log(user)
   return (
     <>
       <Row justify='center' gap={1}>
@@ -16,9 +15,7 @@ function Account({ user, orders }) {
             <AccountHeader {...user} />
             <AccountOrders orders={orders} />
           </Fieldset>
-          {user.role === 'root' && (
-            <AccountPermissions currentUserId={user._id} />
-          )}
+          {/* {user.role === 'root' && <AccountPermissions />} */}
         </Col>
       </Row>
     </>
