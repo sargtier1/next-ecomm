@@ -47,15 +47,13 @@ function AccountPermissions({ currentUserId }) {
               <Table.Column prop='role' label='role' />
             </Table>
           </div>
-          {/* <div className='small-table'>
+          <div className='small-table'>
             <Table data={users}>
+              <Table.Column prop='operation' label='Is Admin' />
               <Table.Column prop='name' label='name' />
-              <Table.Column prop='email' label='email' />
-              <Table.Column prop='createdAt' label='joined' />
-              <Table.Column prop='updatedAt' label='updated' />
               <Table.Column prop='role' label='role' />
             </Table>
-          </div> */}
+          </div>
         </div>
         <Spacer y={2} />
       </Col>
@@ -63,6 +61,22 @@ function AccountPermissions({ currentUserId }) {
       .header-wrapper {
         display: flex;
         flex-direction: column;
+      }
+      @media(max-width : 600px) {
+        .large-table {
+          display: none;
+        }
+        .small-table {
+          display: block;
+        }
+      }
+      @media(min-width : 600px) {
+        .large-table {
+          display: block;
+        }
+        .small-table {
+          display: none;
+        }
       }
       `}</style>
     </Row>
