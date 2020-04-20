@@ -1,12 +1,13 @@
 import AccountHeader from '../components/Account/AccountHeader'
 import AccountOrders from '../components/Account/AccountOrders'
+import AccountPermissions from '../components/Account/AccountPermissions'
 import { Row, Col, Fieldset } from '@zeit-ui/react'
 import { parseCookies } from 'nookies'
 import baseUrl from '../utils/baseUrl'
 import axios from 'axios'
 
 function Account({ user, orders }) {
-  console.log(orders)
+  console.log(user)
   return (
     <>
       <Row justify='center' gap={1}>
@@ -15,6 +16,9 @@ function Account({ user, orders }) {
             <AccountHeader {...user} />
             <AccountOrders orders={orders} />
           </Fieldset>
+          {user.role === 'root' && (
+            <AccountPermissions currentUserId={user._id} />
+          )}
         </Col>
       </Row>
     </>
