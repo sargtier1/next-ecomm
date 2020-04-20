@@ -2,12 +2,16 @@ import React from 'react'
 import axios from 'axios'
 import { Row } from '@zeit-ui/react'
 import ProductList from '../components/Index/ProductList'
+import ProductPagination from '../components/Index/ProductPagination'
 import baseUrl from '../utils/baseUrl'
 
-function Home({ products }) {
+function Home({ products, totalPages }) {
   return (
     <Row justify='space-around'>
-      <ProductList products={products} />
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <ProductList products={products} />
+        <ProductPagination totalPages={totalPages} />
+      </div>
       <style jsx>{`
         .row-wrap {
           display: flex;
@@ -18,13 +22,15 @@ function Home({ products }) {
   )
 }
 
-Home.getInitialProps = async () => {
+Home.getInitialProps = async (ctx) => {
+  console.log(ctx.query)
+  const page = ctx.query.page ? ctx.query.page : '1'
+  const size = 8
   const url = `${baseUrl}/api/products`
-  const res = await axios.get(url)
+  const payload = { params: { page, size } }
+  const res = await axios.get(url, payload)
 
-  return {
-    products: res.data,
-  }
+  return res.data
 }
 
 export default Home
