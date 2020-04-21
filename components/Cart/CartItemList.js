@@ -9,6 +9,7 @@ import {
   Image,
   Text,
   Note,
+  Spinner,
   Code,
 } from '@zeit-ui/react'
 import { useRouter } from 'next/router'
@@ -18,9 +19,31 @@ export default function CartItemList({
   user,
   handleRemoveFromCart,
   success,
+  loading,
 }) {
   const router = useRouter()
   const isEmpty = products.length === 0
+
+  if (loading === true) {
+    return (
+      <>
+        <Row justify='center'>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
+            }}
+          >
+            <Fieldset.Title style={{ margin: ' 2rem 0 1rem' }}>
+              <Spinner size='large' />
+            </Fieldset.Title>
+          </div>
+        </Row>
+      </>
+    )
+  }
 
   if (success === true) {
     return (
@@ -35,7 +58,9 @@ export default function CartItemList({
             }}
           >
             <Fieldset.Title style={{ margin: ' 2rem 0 1rem' }}>
-              <Note type='success'>Your order payment has been accepted</Note>
+              <Note label='Congrats!' type='success'>
+                Your order payment has been accepted
+              </Note>
             </Fieldset.Title>
           </div>
         </Row>

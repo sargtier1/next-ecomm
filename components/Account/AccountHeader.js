@@ -31,7 +31,7 @@ export default function AccountHeader({
           {email}
         </Fieldset.Subtitle>
         <Fieldset.Subtitle style={{ color: 'white' }}>
-          {formatDate(createdAt)}
+          Member since: {formatDate(createdAt)}
         </Fieldset.Subtitle>
         <Spacer y={1} />
         <div style={{ color: 'white' }}>

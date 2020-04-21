@@ -50,6 +50,7 @@ function Cart({ products, user }) {
             user={user}
             products={cartProducts}
             success={success}
+            loading={loading}
           />
           <Fieldset.Footer>
             <CartSummary
