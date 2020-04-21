@@ -16,6 +16,7 @@ function ProductPagination({ totalPages }) {
           }}
         >
           <Button
+            shadow
             style={{ margin: '1rem' }}
             size='mini'
             onClick={() => router.push(`/`)}
@@ -23,6 +24,7 @@ function ProductPagination({ totalPages }) {
             1
           </Button>
           <Button
+            shadow
             style={{ margin: '1rem' }}
             size='mini'
             onClick={() => router.push(`/?page=${2}`)}
@@ -30,6 +32,7 @@ function ProductPagination({ totalPages }) {
             2
           </Button>
           <Button
+            shadow
             style={{ margin: '1rem' }}
             size='mini'
             onClick={() => router.push(`/?page=${3}`)}

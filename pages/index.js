@@ -23,7 +23,6 @@ function Home({ products, totalPages }) {
 }
 
 Home.getInitialProps = async (ctx) => {
-  console.log(ctx.query)
   const page = ctx.query.page ? ctx.query.page : '1'
   const size = 8
   const url = `${baseUrl}/api/products`
