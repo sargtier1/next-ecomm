@@ -5,9 +5,9 @@ import jwt from 'jsonwebtoken'
 import isEmail from 'validator/lib/isEmail'
 import isLength from 'validator/lib/isLength'
 
-connectDb()
 
 export default async (req, res) => {
+  connectDb()
   const { email, password } = req.body
   try {
     // see if user exists

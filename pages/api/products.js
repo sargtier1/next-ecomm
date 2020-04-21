@@ -2,9 +2,9 @@ import products from '../../public/products.json'
 import connectDb from '../../utils/connectDb'
 import Product from '../../models/Product'
 
-connectDb()
 
 export default async (req, res) => {
+  connectDb()
   const { page, size } = req.query
   // convert query string to numbers
   const pageNum = Number(page)

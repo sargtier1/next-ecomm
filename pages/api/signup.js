@@ -6,9 +6,9 @@ import jwt from 'jsonwebtoken'
 import isEmail from 'validator/lib/isEmail'
 import isLength from 'validator/lib/isLength'
 
-connectDb()
 
 export default async (req, res) => {
+  connectDb()
   const { name, email, password } = req.body
   try {
     // validate inputs

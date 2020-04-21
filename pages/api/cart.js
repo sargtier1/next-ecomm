@@ -3,11 +3,11 @@ import jwt from 'jsonwebtoken'
 import Cart from '../../models/Cart'
 import connectDb from '../../utils/connectDb'
 
-connectDb()
 
 const { ObjectId } = mongoose.Types
 
 export default async (req, res) => {
+  connectDb()
   switch (req.method) {
     case 'GET':
       await handleGetRequest(req, res)

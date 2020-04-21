@@ -2,9 +2,9 @@ import User from '../../models/User'
 import jwt from 'jsonwebtoken'
 import connectDb from '../../utils/connectDb'
 
-connectDb()
 
 export default async (req, res) => {
+  connectDb()
   switch (req.method) {
     case 'GET':
       await handleGetRequest(req, res)
