@@ -1,7 +1,6 @@
 {
   "name": "Next Ecomm",
   "alias": "https://next-ecomm.now.sh",
-  "version": 1,
   "build": {
     "env": {
       "MONGO_SRV": "@mongo_srv",
