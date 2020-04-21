@@ -1,5 +1,4 @@
 {
-  "alias": "next-ecomm.now.sh",
   "build": {
     "env": {
       "MONGO_SRV": "@mongo_srv",
