@@ -7,9 +7,9 @@ import isLength from 'validator/lib/isLength'
 
 
 export default async (req, res) => {
-  connectDb()
   const { email, password } = req.body
   try {
+    connectDb()
     // see if user exists
     const user = await User.findOne({ email }).select('+password')
     // if not return error

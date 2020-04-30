@@ -4,8 +4,8 @@ import connectDb from '../../utils/connectDb'
 
 
 export default async (req, res) => {
-  connectDb()
   try {
+    connectDb()
     const { userId } = jwt.verify(
       req.headers.authorization,
       process.env.JWT_SECRET

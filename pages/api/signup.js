@@ -8,9 +8,9 @@ import isLength from 'validator/lib/isLength'
 
 
 export default async (req, res) => {
-  connectDb()
   const { name, email, password } = req.body
   try {
+    connectDb()
     // validate inputs
     if (!isLength(name, { min: 3, max: 10 })) {
       return res

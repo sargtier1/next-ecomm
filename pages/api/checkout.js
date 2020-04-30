@@ -9,11 +9,11 @@ import connectDb from '../../utils/connectDb'
 
 
 export default async (req, res) => {
-  connectDb()
   const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
   const { paymentData } = req.body
-
+  
   try {
+    connectDb()
     const { userId } = jwt.verify(
       req.headers.authorization,
       process.env.JWT_SECRET
