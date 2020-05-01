@@ -5,7 +5,6 @@ import jwt from 'jsonwebtoken'
 import isEmail from 'validator/lib/isEmail'
 import isLength from 'validator/lib/isLength'
 
-
 export default async (req, res) => {
   const { email, password } = req.body
   try {
@@ -17,7 +16,7 @@ export default async (req, res) => {
       return res.status(404).send(`No user exists with that email`)
     }
     // check to see if user pw is correct
-    const passwordsMatch = await await bcrypt.compare(password, user.password)
+    const passwordsMatch = await bcrypt.compare(password, user.password)
 
     if (passwordsMatch) {
       const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
