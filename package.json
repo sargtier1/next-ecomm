@@ -13,7 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@zeit-ui/react": "0.0.1-beta.12",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "bcrypt": "^3.0.6",
     "dotenv": "^8.2.0",
     "js-cookie": "^2.2.0",
